@@ -9,3 +9,8 @@
 ## ATTiny 10 (SOT23)
 ![sot23.png](images/sot23.png)
 
+## AVRISP mk2 コネクタ
+ボード側のピンを上から見た配置です
+
+![avrispmk2.png](images/avrispmk2.png)
+
