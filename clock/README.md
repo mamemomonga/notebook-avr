@@ -30,12 +30,12 @@
 
  Baudrate | U2Xn, UBBR | ERROR 
 ----------|------------|-------
-9600 | U2Xn: 0 UBBR: 0x0033 | ERROR: 0.160000 %
-9600 | U2Xn: 1 UBBR: 0x0067 | ERROR: 0.160000 %
-38400 | U2Xn: 0 UBBR: 0x000c | ERROR: 0.160000 %
-38400 | U2Xn: 1 UBBR: 0x0019 | ERROR: 0.160000 %
-31250 | U2Xn: 0 UBBR: 0x000f | ERROR: 0.000000 %
-31250 | U2Xn: 1 UBBR: 0x001f | ERROR: 0.000000 %
+9600 | U2Xn: 0 UBBR: 0x0033 | 0.160000 %
+9600 | U2Xn: 1 UBBR: 0x0067 | 0.160000 %
+38400 | U2Xn: 0 UBBR: 0x000c | 0.160000 %
+38400 | U2Xn: 1 UBBR: 0x0019 | 0.160000 %
+31250 | U2Xn: 0 UBBR: 0x000f | 0.000000 %
+31250 | U2Xn: 1 UBBR: 0x001f | 0.000000 %
 
 ## FCPU: 9600000 (9.600000 MHz)
 
@@ -45,88 +45,100 @@
 
  Baudrate | U2Xn, UBBR | ERROR 
 ----------|------------|-------
-9600 | U2Xn: 1 UBBR: 0x007c | ERROR: 0.000000 %
+9600 | U2Xn: 1 UBBR: 0x007c | 0.000000 %
 
 ## FCPU: 7372800 (7.372800 MHz)
 
 * 3.3Vでのシリアル通信に最適
 * MIDIには不向き
 
+* [RS:FOXSLF/073-20](https://jp.rs-online.com/web/p/crystal-units/5476193/)
+
  Baudrate | U2Xn, UBBR | ERROR 
 ----------|------------|-------
-9600 | U2Xn: 0 UBBR: 0x002f | ERROR: 0.000000 %
-9600 | U2Xn: 1 UBBR: 0x005f | ERROR: 0.000000 %
-38400 | U2Xn: 0 UBBR: 0x000b | ERROR: 0.000000 %
-38400 | U2Xn: 1 UBBR: 0x0017 | ERROR: 0.000000 %
-115200 | U2Xn: 0 UBBR: 0x0003 | ERROR: 0.000000 %
-115200 | U2Xn: 1 UBBR: 0x0007 | ERROR: 0.000000 %
+9600 | U2Xn: 0 UBBR: 0x002f | 0.000000 %
+9600 | U2Xn: 1 UBBR: 0x005f | 0.000000 %
+38400 | U2Xn: 0 UBBR: 0x000b | 0.000000 %
+38400 | U2Xn: 1 UBBR: 0x0017 | 0.000000 %
+115200 | U2Xn: 0 UBBR: 0x0003 | 0.000000 %
+115200 | U2Xn: 1 UBBR: 0x0007 | 0.000000 %
 
 ## FCPU: 10000000 (10.000000 MHz)
 
 * 3.3Vでの最高クロック
 * MIDIに最適
 
+* [秋月:HUSG-10.000-20](http://akizukidenshi.com/catalog/g/gP-08668/)
+
  Baudrate | U2Xn, UBBR | ERROR 
 ----------|------------|-------
-9600 | U2Xn: 0 UBBR: 0x0040 | ERROR: 0.160000 %
-9600 | U2Xn: 1 UBBR: 0x0081 | ERROR: 0.160000 %
-31250 | U2Xn: 0 UBBR: 0x0013 | ERROR: 0.000000 %
-31250 | U2Xn: 1 UBBR: 0x0027 | ERROR: 0.000000 %
+9600 | U2Xn: 0 UBBR: 0x0040 | 0.160000 %
+9600 | U2Xn: 1 UBBR: 0x0081 | 0.160000 %
+31250 | U2Xn: 0 UBBR: 0x0013 | 0.000000 %
+31250 | U2Xn: 1 UBBR: 0x0027 | 0.000000 %
 
 ## FCPU: 11059200 (11.059200 MHz)
 
 * シリアル通信での範囲広い
 * MIDIには不向き
 
+* [RS:AS-11.0592-18](https://jp.rs-online.com/web/p/crystal-units/6936961/)
+
  Baudrate | U2Xn, UBBR | ERROR 
 ----------|------------|-------
-9600 | U2Xn: 0 UBBR: 0x0047 | ERROR: 0.000000 %
-9600 | U2Xn: 1 UBBR: 0x008f | ERROR: 0.000000 %
-38400 | U2Xn: 0 UBBR: 0x0011 | ERROR: 0.000000 %
-38400 | U2Xn: 1 UBBR: 0x0023 | ERROR: 0.000000 %
-115200 | U2Xn: 0 UBBR: 0x0005 | ERROR: 0.000000 %
-115200 | U2Xn: 1 UBBR: 0x000b | ERROR: 0.000000 %
+9600 | U2Xn: 0 UBBR: 0x0047 | 0.000000 %
+9600 | U2Xn: 1 UBBR: 0x008f | 0.000000 %
+38400 | U2Xn: 0 UBBR: 0x0011 | 0.000000 %
+38400 | U2Xn: 1 UBBR: 0x0023 | 0.000000 %
+115200 | U2Xn: 0 UBBR: 0x0005 | 0.000000 %
+115200 | U2Xn: 1 UBBR: 0x000b | 0.000000 %
 
 ## FCPU: 14745600 (14.745600 MHz)
 
 * 5VでのUSARTに最適
 * MIDIも良好
 
+* [RS:HUS-14.74560-18-30/50/4085](https://jp.rs-online.com/web/p/crystal-units/6720280/)
+
  Baudrate | U2Xn, UBBR | ERROR 
 ----------|------------|-------
-9600 | U2Xn: 0 UBBR: 0x005f | ERROR: 0.000000 %
-9600 | U2Xn: 1 UBBR: 0x00bf | ERROR: 0.000000 %
-38400 | U2Xn: 0 UBBR: 0x0017 | ERROR: 0.000000 %
-38400 | U2Xn: 1 UBBR: 0x002f | ERROR: 0.000000 %
-115200 | U2Xn: 0 UBBR: 0x0007 | ERROR: 0.000000 %
-115200 | U2Xn: 1 UBBR: 0x000f | ERROR: 0.000000 %
-31250 | U2Xn: 1 UBBR: 0x003a | ERROR: 0.029831 %
+9600 | U2Xn: 0 UBBR: 0x005f | 0.000000 %
+9600 | U2Xn: 1 UBBR: 0x00bf | 0.000000 %
+38400 | U2Xn: 0 UBBR: 0x0017 | 0.000000 %
+38400 | U2Xn: 1 UBBR: 0x002f | 0.000000 %
+115200 | U2Xn: 0 UBBR: 0x0007 | 0.000000 %
+115200 | U2Xn: 1 UBBR: 0x000f | 0.000000 %
+31250 | U2Xn: 1 UBBR: 0x003a | 0.029831 %
 
 ## FCPU: 16000000 (16.000000 MHz)
 
 * Arduino UNO搭載クロック
 
+* [秋月:HUSG-16.000-20](http://akizukidenshi.com/catalog/g/gP-08671/)
+
  Baudrate | U2Xn, UBBR | ERROR 
 ----------|------------|-------
-9600 | U2Xn: 0 UBBR: 0x0067 | ERROR: 0.160000 %
-9600 | U2Xn: 1 UBBR: 0x00cf | ERROR: 0.160000 %
-31350 | U2Xn: 0 UBBR: 0x001f | ERROR: 0.318979 %
-31350 | U2Xn: 1 UBBR: 0x003f | ERROR: 0.318979 %
-38400 | U2Xn: 0 UBBR: 0x0019 | ERROR: 0.160000 %
-38400 | U2Xn: 1 UBBR: 0x0033 | ERROR: 0.160000 %
+9600 | U2Xn: 0 UBBR: 0x0067 | 0.160000 %
+9600 | U2Xn: 1 UBBR: 0x00cf | 0.160000 %
+31350 | U2Xn: 0 UBBR: 0x001f | 0.318979 %
+31350 | U2Xn: 1 UBBR: 0x003f | 0.318979 %
+38400 | U2Xn: 0 UBBR: 0x0019 | 0.160000 %
+38400 | U2Xn: 1 UBBR: 0x0033 | 0.160000 %
 
 ## FCPU: 20000000 (20.000000 MHz)
 
 * 5Vでの最高クロック
 * MIDIに最適 
 
+* [秋月:HUSG-20.000-20](http://akizukidenshi.com/catalog/g/gP-08673/)
+
  Baudrate | U2Xn, UBBR | ERROR 
 ----------|------------|-------
-9600 | U2Xn: 0 UBBR: 0x0081 | ERROR: 0.160000 %
-9600 | U2Xn: 1 UBBR: 0x0103 | ERROR: 0.160000 %
-38400 | U2Xn: 1 UBBR: 0x0040 | ERROR: 0.160000 %
-31250 | U2Xn: 0 UBBR: 0x0027 | ERROR: 0.000000 %
-31250 | U2Xn: 1 UBBR: 0x004f | ERROR: 0.000000 %
+9600 | U2Xn: 0 UBBR: 0x0081 | 0.160000 %
+9600 | U2Xn: 1 UBBR: 0x0103 | 0.160000 %
+38400 | U2Xn: 1 UBBR: 0x0040 | 0.160000 %
+31250 | U2Xn: 0 UBBR: 0x0027 | 0.000000 %
+31250 | U2Xn: 1 UBBR: 0x004f | 0.000000 %
 
 
 # 参考になるサイト
