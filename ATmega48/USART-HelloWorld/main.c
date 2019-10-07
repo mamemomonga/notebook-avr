@@ -28,10 +28,10 @@ int main(void) {
 		cli();
 		printf_P(PSTR("Hello World! %2d\r\n"),count);
 		sei();
+		LED1_L;
 
 		count++;
 		_delay_ms(500);
-		LED1_L;
 	}
 
 }
