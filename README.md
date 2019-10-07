@@ -1,8 +1,7 @@
 # AVR/Arduinoのメモ帳
 
 * [クロックについて](./clock/)
-* [ピンレイアウト](./pins/)
-* [配線例](./wiring/)
+* [ピンレイアウトと配線サンプル](./pins/)
 * [ATTin13Aサンプル](./ATTiny13A/Blink-Button)
 
 # 開発環境
@@ -21,6 +20,8 @@
 
 * [Engbedded Atmel AVR® Fuse Calculator](http://www.engbedded.com/fusecalc)
 * [AVR UART Baud Rate Calculator](https://trolsoft.ru/en/uart-calc)
+* [AVR Makefile Generator](https://0xdec.gitlab.io/avr-makefile-generator/)
+* [A Makefile for Arduino Sketches](https://0xdec.gitlab.io/avr-makefile-generator/)
 
 # よく使うIC
 
