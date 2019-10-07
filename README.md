@@ -7,7 +7,7 @@
 # 開発環境
 
 * [Arduino IDE](https://www.arduino.cc/en/Main/Software)
-* [Atmel Studio](http://www.atmel.com/ja/jp/tools/ATMELSTUDIO.aspx)
+* [Atmel Studio](https://www.microchip.com/mplab/avr-support/atmel-studio-7)
 * [CrossPack for AVR](https://www.obdev.at/products/crosspack/index.html)
 
 # プログラミング環境とライブラリ
