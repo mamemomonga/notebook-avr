@@ -1,4 +1,3 @@
-/Schemantics.graffle
-/*.elf
-/*.hex
-/*.o
+*.elf
+*.hex
+*.o
