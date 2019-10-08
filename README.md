@@ -2,7 +2,8 @@
 
 * [クロックについて](./clock/)
 * [ピンレイアウトと配線サンプル](./pins/)
-* [ATTin13Aサンプル](./ATTiny13A/Blink-Button)
+* [サンプルコード集](./src)
+* [avr-gccメモ](./avr-gcc)
 
 # 開発環境
 

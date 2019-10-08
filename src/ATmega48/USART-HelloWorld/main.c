@@ -1,5 +1,5 @@
 #include "main.h"
-#include "libs/serial.h"
+#include "serial.h"
 
 void usart_recieve(char buf) {
 	LED1_H;
