@@ -5,7 +5,7 @@ OBJECTS = $(addsuffix .o, $(basename $(shell find . -type f -name '*.c'))) $(she
 AVRDUDE = avrdude $(PROGRAMMER) -p $(DEVICE) 
 
 # コンパイル
-COMPILE = avr-gcc -Wall -Os -std=gnu99 -I $(PWD)/../../include -L $(PWD)/../../lib -DF_CPU=$(CLOCK) -DBAUD=$(BAUD) -mmcu=$(DEVICE)
+COMPILE = avr-gcc -Wall -Os -std=gnu99 -I $(PWD)/../../include -I . -L $(PWD)/../../lib -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 
 all:	main.hex
 

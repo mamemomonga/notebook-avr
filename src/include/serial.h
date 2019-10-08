@@ -3,19 +3,25 @@
 
 #include <avr/io.h>
 #include <stdio.h>
+#include "config.h"
 
-// F_CPUはMakefileで設定されている
-// BAUDをMakefileで設定する場合はこうする
-// avr-gcc -Wall -Os -DF_CPU=$(CLOCK)UL -DBAUD=$(BAUD) -mmcu=$(DEVICE) -std=c99
+// BAUD と F_CPUマクロの設定が必要
+// F_CPU は Makefile で設定
+// BAUD は config.h で設定すること
+// 未定義の場合は9600になる
 
-// ここでも設定可能
-// #define F_CPU 160000000L
-// #define BAUD  38400
-
-typedef void (* T_USART_RECIEVE)(char);
-
-void serial_init(T_USART_RECIEVE fp_ur);
-void uart_putchar(char c);
-
+#ifndef BAUD
+#define BAUD 9600
 #endif
 
+// コールバックの型
+typedef void (* T_USART_RECIEVE)(char);
+
+// 初期化
+// 受信用のコールバック関数を設定する
+void usart_init(T_USART_RECIEVE fp_ur);
+
+// 文字送信
+void usart_send_char(char c);
+
+#endif

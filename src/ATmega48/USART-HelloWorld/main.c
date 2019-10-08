@@ -11,7 +11,7 @@ int main(void) {
 
 	LED1_INIT;
 	LED1_H;
-	serial_init(usart_recieve);
+	usart_init(usart_recieve);
 	sei();
 
 	_delay_ms(1000);

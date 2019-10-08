@@ -5,9 +5,9 @@
 
 static FILE usart_serialstream;
 static T_USART_RECIEVE fp_usart_recieve;
-
 static void usart_recieve_default(char buf);
 
+// USART割り込み
 ISR(USART_RX_vect) {
 	if(bit_is_clear(UCSR0A,FE0)){ // フレームエラーなし
 		char buf=UDR0;
@@ -15,7 +15,8 @@ ISR(USART_RX_vect) {
 	}
 }
 
-void serial_init(T_USART_RECIEVE fp_ur) {
+// 初期化
+void usart_init(T_USART_RECIEVE fp_ur) {
 
 	// ボーレート設定(setbaud.hで設定)
 	UBRR0H = UBRRH_VALUE;
@@ -43,7 +44,7 @@ void serial_init(T_USART_RECIEVE fp_ur) {
 	// stdoutをシリアルに設定
 	FILE* stream=&usart_serialstream;
 	stdout=stream;
-	*stream=(FILE)FDEV_SETUP_STREAM(uart_putchar, NULL, _FDEV_SETUP_WRITE);
+	*stream=(FILE)FDEV_SETUP_STREAM(usart_send_char, NULL, _FDEV_SETUP_WRITE);
 
 	// シリアル入力時のコールバック
 	if(fp_ur==NULL) {
@@ -56,7 +57,7 @@ void serial_init(T_USART_RECIEVE fp_ur) {
 
 static void usart_recieve_default(char buf) {}
 
-void uart_putchar(char c) {
+void usart_send_char(char c) {
 	loop_until_bit_is_set(UCSR0A, UDRE0);
 	UDR0 = c;
 }
