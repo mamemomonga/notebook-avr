@@ -7,8 +7,9 @@
 
 // BAUD と F_CPUマクロの設定が必要
 // F_CPU は Makefile で設定
+
 // BAUD は config.h で設定すること
-// 未定義の場合は9600になる
+// 未定義の場合は9600にする
 
 #ifndef BAUD
 #define BAUD 9600

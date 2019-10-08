@@ -5,7 +5,6 @@
 
 static FILE usart_serialstream;
 static T_USART_RECIEVE fp_usart_recieve;
-static void usart_recieve_default(char buf);
 
 // USART割り込み
 ISR(USART_RX_vect) {
@@ -47,15 +46,11 @@ void usart_init(T_USART_RECIEVE fp_ur) {
 	*stream=(FILE)FDEV_SETUP_STREAM(usart_send_char, NULL, _FDEV_SETUP_WRITE);
 
 	// シリアル入力時のコールバック
-	if(fp_ur==NULL) {
-		fp_usart_recieve=usart_recieve_default;
-	} else {
+	if(fp_ur != NULL) {
 		fp_usart_recieve=fp_ur;
 	}
 
 }
-
-static void usart_recieve_default(char buf) {}
 
 void usart_send_char(char c) {
 	loop_until_bit_is_set(UCSR0A, UDRE0);

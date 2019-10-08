@@ -11,6 +11,9 @@ int main(void) {
 
 	LED1_INIT;
 	LED1_H;
+
+	// 初期化と受信コールバックの設定
+	cli();
 	usart_init(usart_recieve);
 	sei();
 

@@ -5,6 +5,7 @@ int main(void) {
 	LED1_L;
 
 	spi595_init();
+
 	_delay_ms(1000);
 
 	// 0番をオン
