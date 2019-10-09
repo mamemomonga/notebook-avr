@@ -1,11 +1,12 @@
 # AVR/Arduinoのメモ帳
 
-* [クロックについて](./clock/)
-* [ピンレイアウトと配線サンプル](./pins/)
-* [サンプルコード集](./src)
+* [サンプルコードとライブラリ](./src)
+* [クロックについて](./clock)
+* [ピンレイアウトと配線サンプル](./pins)
 * [avr-gccメモ](./avr-gcc)
+* [開発情報](./development)
 
-# 開発環境
+# 開発
 
 * [Arduino IDE](https://www.arduino.cc/en/Main/Software)
 * [Atmel Studio](https://www.microchip.com/mplab/avr-support/atmel-studio-7)

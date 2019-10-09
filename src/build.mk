@@ -1,11 +1,12 @@
 # オブジェクトファイル
-OBJECTS = $(addsuffix .o, $(basename $(shell find . -type f -name '*.c'))) $(shell for i in $(MLIBS); do echo "../../lib/$$i.o"; done)
 
-# AVRDUDE
-AVRDUDE = avrdude $(PROGRAMMER) -p $(DEVICE) 
+LIBDIR=$(PWD)/../lib
 
-# コンパイル
-COMPILE = avr-gcc -Wall -Os -std=gnu99 -I $(PWD)/../../include -I . -L $(PWD)/../../lib -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
+OBJECTS = $(addsuffix .o, $(basename $(shell find . -type f -name '*.c'))) $(shell for i in $(MLIBS); do echo "$(LIBDIR)/$$i.o"; done)
+
+AVRDUDE= avrdude $(PROGRAMMER) -p $(DEVICE) 
+
+COMPILE = avr-gcc -Wall -Os -std=gnu99 -I $(PWD)/../include -I . -L $(LIBDIR) -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 
 all:	main.hex
 

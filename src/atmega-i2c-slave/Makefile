@@ -13,5 +13,5 @@ FUSES      = -U lfuse:w:0xff:m -U hfuse:w:0xdf:m -U efuse:w:0x01:m
 # 使用オリジナルライブラリ
 MLIBS = serial i2c-slave
 
-include ../../build.mk
+include ../build.mk
 
