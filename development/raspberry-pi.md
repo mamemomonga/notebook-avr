@@ -1,4 +1,8 @@
-# Raspberry Pi Raspbian Buster にAVR開発環境を導入する
+# Raspberry Pi
+
+Raspberry Pi を開発環境にすると、いろいろと捗ります。ここではRaspbian(Debian Buster)での実行例です。
+
+## AVR開発環境を導入
 
 	$ sudo apt update
 	$ sudo apt install -y gcc-avr avrdude avr-libc build-essential
