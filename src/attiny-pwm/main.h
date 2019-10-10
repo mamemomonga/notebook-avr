@@ -5,7 +5,7 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 
-// 配線
+// -- 配線 --
 //       /RST |     | VCC
 //       PB3  |     | PB2 LED1
 //  LED2 PB4  |     | PB1

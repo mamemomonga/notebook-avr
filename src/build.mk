@@ -2,13 +2,20 @@
 
 LIBDIR=$(PWD)/../lib
 
-OBJECTS = $(addsuffix .o, $(basename $(shell find . -type f -name '*.c'))) $(shell for i in $(MLIBS); do echo "$(LIBDIR)/$$i.o"; done)
+OBJS = $(addsuffix .o, $(basename $(shell find . -type f -name '*.c'))) $(shell for i in $(MLIBS); do echo "$(LIBDIR)/$$i.o"; done)
+
+DEPS = $(OBJS:%.o=%.d)
 
 AVRDUDE= avrdude $(PROGRAMMER) -p $(DEVICE) 
 
 COMPILE = avr-gcc -Wall -Os -std=gnu99 -I $(PWD)/../include -I . -L $(LIBDIR) -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 
 all:	main.hex
+
+-include $(DEPS)
+
+%.o: %.c
+	$(COMPILE) -c -MMD -MP $<
 
 .c.o:
 	$(COMPILE) -c $< -o $@
@@ -31,10 +38,10 @@ load: all
 	bootloadHID main.hex
 
 clean:
-	rm -f main.hex main.elf $(OBJECTS)
+	rm -f main.hex main.elf $(OBJS)
 
-main.elf: $(OBJECTS)
-	$(COMPILE) -o main.elf $(OBJECTS)
+main.elf: $(OBJS)
+	$(COMPILE) -o main.elf $(OBJS)
 
 main.hex: main.elf
 	rm -f main.hex
