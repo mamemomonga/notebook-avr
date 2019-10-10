@@ -5,7 +5,7 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 
-// -- $BG[@~(B --
+// -- 配線 --
 //       /RST |     | VCC
 //       PB3  |     | PB2 LED1
 //  LED2 PB4  |     | PB1
@@ -23,10 +23,10 @@
 #define LED1_L    PORTB &=~ LED1
 #define LED1_I    PORTB ^=  LED1
 
-// PWM$B$N<~GH?t(B
+// PWMの周波数
 #define PWM_HZ 75
 
-// 1$BIC%+%&%s%?(B
+// 1秒カウンタ
 uint8_t timer_ct0;
 
 #endif
