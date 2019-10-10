@@ -3,7 +3,9 @@
 Waveform Generation Mode: 1(PWM (Phase Correct)) を使えば、PWM波と定期的な割り込みを発生させることができる。
 TCNT0とOCR0Aが同じ値になったらISR(TIM0_COMPA_vect)が発生し、TCNT0がリセットされる。
 
-# 計算
+# 1秒を求める
+
+以下の方法で正確な周波数を求めることができる
 
 `pwm-calc.pl fosc(MHz) prescale`
 
