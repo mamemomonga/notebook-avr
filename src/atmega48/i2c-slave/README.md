@@ -1,5 +1,8 @@
 # i2c Slave
 
+* [i2c-slave.h](../../include/i2c-slave.h)
+* [i2c-slave.c](../../lib/i2c-slave.c)
+
 * i2cで受信すると、データアドレスに1くわえたものを返す
 * i2cで要求されると、その値をシリアルに出力する
 * 1バイトごと専用

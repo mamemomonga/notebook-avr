@@ -5,7 +5,7 @@ TCNT0とOCR0Aが同じ値になったらISR(TIM0_COMPA_vect)が発生し、TCNT0
 
 # 1秒を求める
 
-[pwm-calc.pl](../../bin/pwm-calc.pl)で正確な周波数を求めることができる
+[pwm-calc.pl](../../../bin/pwm-calc.pl)で正確な周波数を求めることができる
 
 `pwm-calc.pl fosc(MHz) prescale`
 

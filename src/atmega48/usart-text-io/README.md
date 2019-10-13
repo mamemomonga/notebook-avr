@@ -1,5 +1,8 @@
 # USART サンプル
 
+* [serial.h](../../include/serial.h)
+* [serial.c](../../lib/serial.c)
+
 * USARTによるシリアル接続
 * stdoutをシリアルポートにする
 * 500ミリ秒間隔で出力する

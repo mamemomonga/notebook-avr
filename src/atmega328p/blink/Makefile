@@ -20,5 +20,5 @@ FUSES = -U lfuse:w:0xce:m -U hfuse:w:0xd9:m -U efuse:w:0x07:m
 # 使用オリジナルライブラリ
 MLIBS =
 
-include ../build.mk
+include ../../build.mk
 
