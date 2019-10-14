@@ -4,6 +4,25 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
+/*
+ ATmega328P 28PDIP
+
+ /RST | 1     28 | PC5
+  PD0 | 2     27 | PC4
+  PD1 | 3     26 | PC3
+  PD2 | 4     25 | PC2
+  PD3 | 5     24 | PC1
+  PD4 | 6     23 | PC0
+  VCC | 7     22 | GND
+  GND | 8     21 | AREF
+XTAL1 | 9     20 | AVCC
+XTAL2 | 10    19 | PB5
+  PD5 | 11    18 | PB4
+  PD6 | 12    17 | PB3
+  PD7 | 13    16 | PB2
+  PB0 | 14    15 | PB1
+*/
+
 // LED1 PB5
 //   LED1_INIT: 初期化
 //   LED1_H:    HIGHにする

@@ -4,6 +4,15 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
+/*
+ ATtiny10 SOT32
+
+ PB0 | 1   6 | PB3
+ GND | 2   5 | VCC
+ PB1 | 3   4 | PB2
+
+*/
+
 #define LED1      ( 1<<PB2 )
 #define LED1_INIT DDRB  |=  LED1
 #define LED1_H    PORTB |=  LED1
