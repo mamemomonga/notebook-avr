@@ -1,18 +1,28 @@
 DEVICE     := attiny13
+FUSES      := -U hfuse:w:0xff:m -U lfuse:w:0x7a:m
 CLOCK      := 9600000
 PROGRAMMER := -c avrisp2
-FUSES      := -U hfuse:w:0xff:m -U lfuse:w:0x7a:m
-APPEND_OBJECTS := 
+EXTERNAL_LIBS :=
 
-OBJECTS :=  $(addsuffix .o, $(basename $(shell find . -name '*.c' -o -name '*.S')) $(APPEND_OBJECTS))
+EXTERNAL_OBJS := $(addsuffix .o, $(EXTERNAL_LIBS))
+EXTERNAL_LIBDIR := $(sort $(dir $(EXTERNAL_OBJS)))
+LOCAL_OBJS := $(addsuffix .o, $(basename $(shell find . -name '*.c' -o -name '*.S')))
+OBJECTS := $(LOCAL_OBJS) $(EXTERNAL_OBJS)
 AVRDUDE := avrdude $(PROGRAMMER) -p $(DEVICE)
-COMPILE := avr-gcc -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE) -std=gnu99
 
+ifdef EXTERNAL_LIBDIR
+	COMPILE := avr-gcc -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE) -std=gnu99 $(addprefix -L,$(EXTERNAL_LIBDIR)) $(addprefix -I,$(EXTERNAL_LIBDIR)) 
+else
+	COMPILE := avr-gcc -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE) -std=gnu99
+endif
 
 all: main.hex
 
 DEPS = $(OBJS:%.o=%.d)
 -include $(DEPS)
+
+$(EXTERNAL_OBJS):
+	cd $(dir $@); $(MAKE) $@
 
 %.o: %.c
 	$(COMPILE) -c -MMD -MP $<
@@ -53,3 +63,4 @@ disasm:	main.elf
 
 cpp:
 	$(COMPILE) -E main.c
+
