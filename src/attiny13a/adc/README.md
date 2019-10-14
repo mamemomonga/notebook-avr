@@ -1,4 +1,4 @@
-# ADC
+# AD Converter
 
 ADC1(PB2)の電圧値を電源を基準に0x00〜0xFFでシリアル出力
 
