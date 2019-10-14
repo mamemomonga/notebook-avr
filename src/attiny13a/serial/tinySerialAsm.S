@@ -14,11 +14,19 @@
 
 #define delayCount r18
 #include <avr/io.h>
+#include "config.h"
+
 ; correct for avr/io.h 0x20 port offset for io instructions
 
 #define UART_Port (PORTB-0x20)
+
+#ifndef UART_Tx
 #define UART_Tx 1
+#endif
+
+#ifndef UART_Rx
 #define UART_Rx 1
+#endif
 
 ; Supports using only one pin on the AVR for both Tx and Rx
 ;              D1
@@ -32,7 +40,7 @@
 ; calling code must set Tx line to idle state (high) or 1st byte may be lost
 ; i.e. PORTB |= (1<<UART_Tx)
 TxTimedByte:
-	cli
+	// cli
         sbi UART_Port-1, UART_Tx        ; set Tx line to output
         cbi UART_Port, UART_Tx          ; start bit
 	in r0, UART_Port
@@ -62,7 +70,7 @@ TxDelay:
 	out     0x3a, r24
 
 	ret
-//	reti				; return and enable interrupts
+	//reti				; return and enable interrupts
 
 
 .global RxTimedByte
@@ -77,7 +85,7 @@ RxTimedByte:
 WaitStart:
  	sbic UART_Port-2, UART_Rx 	; wait for start edge
  	rjmp WaitStart
-	cli
+	// cli
 RxBit:
         ; 6 cycle loop + delay - total = 5 + 3*r22
 ; delay (3 cycle * delayCount) -1 and clear carry with subi

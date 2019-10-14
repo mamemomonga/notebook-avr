@@ -1,5 +1,5 @@
 #include "main.h"
-#include "tSerial.h"
+#include "tinySerial.h"
 
 #include <avr/io.h>
 #include <avr/pgmspace.h>
@@ -8,7 +8,7 @@
 
 void serial_recieve(const char c) {
 	LED1_I;
-	serOutP("Recieve:"); serOutC(c); serOutP("\r\n");
+	cli(); serOutP("Recieve:"); serOutC(c); serOutP("\r\n"); sei();
 }
 
 int main(void) {
@@ -29,9 +29,7 @@ int main(void) {
 
 	for(;;) {
 		LED1_I;
-		cli();
-		serOutP("Hello World\r\n");
-		sei();
+		serOutPB("Hello World\r\n");
 		_delay_ms(500);
 	}
 
@@ -41,7 +39,7 @@ void list_osccal(void) {
 	for(;;) {
 		for(uint8_t i=0;i<0x7f;i++) {
 			OSCCAL=i;
-			serOutP("OSCCAL = 0x"); serOutInt8Hex(i); serOutP("\r\n");
+			cli(); serOutP("OSCCAL = 0x"); serOutInt8Hex(i); serOutP("\r\n"); sei();
 			_delay_ms(1);
 		}
 		for(uint8_t i=0;i<10;i++) {
