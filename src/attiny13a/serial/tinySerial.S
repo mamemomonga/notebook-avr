@@ -1,3 +1,9 @@
+/* 
+ * tinySerial.S
+ * based on BasicSerial3.zip by Ralph Doncaster
+ *   http://nerdralph.blogspot.com/2014/01/avr-half-duplex-software-uart.html
+*/
+
 /* half-duplex 81N serial uart in hand-tuned assembler
  * 1%/2% Tx/Rx timing error for 115.2kbps@8Mhz
  * 2%/1% Tx/Rx timing error for 230.4kbps@8Mhz

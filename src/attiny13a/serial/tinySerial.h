@@ -1,6 +1,5 @@
 /* 
  * tinySerial.h
- * author: mamemomonga
  * based on BasicSerial3.zip by Ralph Doncaster
  *   http://nerdralph.blogspot.com/2014/01/avr-half-duplex-software-uart.html
 */
