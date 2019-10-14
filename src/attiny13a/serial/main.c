@@ -14,8 +14,8 @@ int main(void) {
 	LED1_INIT;
 	LED1_H;
 
-	// シリアル初期化、引数は受信のコールバック
-	serial_init(serial_recieve);
+	// シリアル割り込み有効
+	serial_interrupt(serial_recieve);
 
 	// list_osccalを実行すると、文字化けとOSCCALリストが繰り返し出力される
 	// 正しく表示されたリストの中から中心値を選択すると

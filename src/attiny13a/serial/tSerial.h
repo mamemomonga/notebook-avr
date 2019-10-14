@@ -21,10 +21,9 @@
 // uint8_tを16進数にして送信
 #define serOutInt8Hex(n) { char buf[4]; itoa(n, buf, 16); serial_send(buf); }
 
-// コールバックの型
+// 割り込み有効
 typedef void (* t_serial_recieve)(const char);
-// 初期化
-void serial_init(t_serial_recieve fp_sr);
+void serial_interrupt(t_serial_recieve fp_sr);
 
 void serial_send(const char* c);
 void serial_send_P(const char *p);

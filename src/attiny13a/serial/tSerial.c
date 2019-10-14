@@ -16,7 +16,7 @@ void serial_send_P(const char *p) {
 	while ((c=pgm_read_byte(p++)) != 0) TxByte (c);
 }
 
-void serial_init(t_serial_recieve fp_sr) {
+void serial_interrupt(t_serial_recieve fp_sr) {
 	// コールバックの設定
 	fp_serial_recieve = fp_sr;
 
@@ -28,5 +28,4 @@ void serial_init(t_serial_recieve fp_sr) {
 	sei();
 
 }
-
 
