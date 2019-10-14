@@ -29,7 +29,7 @@
  名前 | PGM | SRAM | EEPROM | 単価 | 特徴
 ------|---- |------|--------|------|----------
 [ATTiny10A]() | 1K | 32 | - | [秋月:35円](http://akizukidenshi.com/catalog/g/gI-04575/) | 米粒大
-[ATTiny13A](https://www.microchip.com/wwwproducts/en/ATTINY13A) | 1K | 64 | 64 | [秋月:50円](http://akizukidenshi.com/catalog/g/gI-02911/) | 私の超定番
+[ATTiny13A](https://www.microchip.com/wwwproducts/en/ATTINY13A) | 1K | 64 | 64 | [秋月:50円](http://akizukidenshi.com/catalog/g/gI-02911/) | 好き
 [ATTiny85](https://www.microchip.com/wwwproducts/en/ATtiny85) | 8K | 512 | 512 | [秋月:130円](http://akizukidenshi.com/catalog/g/gI-09573/) | SPI,I2C,SPWM
 [ATmega48](https://www.microchip.com/wwwproducts/en/ATmega48) | 4K | 512 | 256 | [秋月:150円](http://akizukidenshi.com/catalog/g/gI-08437/) | 面実装だけど安い
 [ATmega168](https://www.microchip.com/wwwproducts/en/ATmega168) | 16K | 1K | 512 |[RS:330.5円](https://jp.rs-online.com/web/p/microcontrollers/1278258/) | 機能は多分328Pとほとんど同じ
