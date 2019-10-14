@@ -36,6 +36,7 @@ main.h
 
 	#ifndef _MAIN_H_
 	#define _MAIN_H_
+
 	#include <avr/io.h>
 
 	// LED1 PB5
@@ -48,7 +49,6 @@ main.h
 	#define LED1_H    PORTB |=  LED1
 	#define LED1_L    PORTB &=~ LED1
 	#define LED1_I    PORTB ^=  LED1
-	#endif
 
 	// ボタン1 PB1
 	// IC内部でプルアップ有功
@@ -57,6 +57,8 @@ main.h
 	#define BTN1      ( 1<<PB1 )
 	#define BTN1_INIT { DDRB &=~ BTN1; PORTB |= BTN1; }
 	#define BTN1_IS_H ( PINB & BTN1 )
+
+	#endif
 
 main.c
 
