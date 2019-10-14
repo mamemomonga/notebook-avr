@@ -43,6 +43,22 @@
 
 この場合、0x60とか0x61を使用すればよい。
 
+## 入出力
+
+出力は以下のマクロを使用する
+
+PROGMEMを使用すると、文字列にSRAMを消費せず、プログラムメモリを消費するので便利。
+
+
+マクロ        | 内容                  | 例
+--------------|-----------------------|------------------
+serOutP(a)    | PROGMEMのchar[]を送信 | serOutP("Hello");
+serOutS(a)    | char[]を送信          | serOutS("Hello");
+serOutInt8(a) | uint8_tを文字列にして送信 | serOutInt8(5);
+serOutInt8Hex(a) | uint8_tを16進数にして送信 | serOutInt8Hex(5);
+
+入力はserial_init(cb) で cbにコールバック関数を設定する
+
 # 参考
 
 * [AVR half-duplex software UART supporting single pin operation](http://nerdralph.blogspot.com/2014/01/avr-half-duplex-software-uart.html)
