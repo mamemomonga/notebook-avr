@@ -7,7 +7,7 @@ SPI出力をつかった74HC595のコントロール
 
 # 配線図
 
-![SPI595](./images/SPI595.png)
+![SPI595](../../..//images/SPI595.png)
 
 * ATmega48 TQFPを使用
 * 74HC595の出力と電源は省略。出力は1KΩの抵抗を介してLEDをつけるとよい。
