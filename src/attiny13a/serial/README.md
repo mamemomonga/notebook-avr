@@ -6,7 +6,7 @@
 
 # 回路図
 
-![図](../../images/ATtiny13-Serial.png)
+![図](../../../images/ATtiny13-Serial.png)
 
 
 # PCとの接続
