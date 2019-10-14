@@ -7,6 +7,7 @@
 #include <util/delay.h>
 
 void serial_recieve(const char c) {
+	LED1_I;
 	serOutP("Recieve:"); serOutC(c); serOutP("\r\n");
 }
 
