@@ -8,7 +8,7 @@
 
 * [Lチカ](attiny13a/blink)
 * [Lチカ・ボタン・割り込み・スリープ](attiny13a/blink-button)
-* [タイマをつかったPWM](attiny13a/pwm)
+* [高速PWM](attiny13a/fast-pwm)
 
 ## ATmega48
 
