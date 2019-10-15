@@ -2,8 +2,8 @@
 #define _CONFIG_H_
 
 // ボーレート 省略時は 38400
-// #define BAUD 38400 
-#define BAUD 115200
+#define BAUD 38400 
+// #define BAUD 115200
 
 // 送受信ポート、PBx
 // INT0割り込みを使う場合はPB1専用となる
