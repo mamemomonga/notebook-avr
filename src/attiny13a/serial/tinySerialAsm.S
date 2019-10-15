@@ -18,7 +18,7 @@
 
 ; correct for avr/io.h 0x20 port offset for io instructions
 
-#define UART_Port (PORTB-0x20)
+#define UART_Port (PORTB - __SFR_OFFSET)
 
 #ifndef UART_Tx
 #define UART_Tx 1
