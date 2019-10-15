@@ -1,5 +1,5 @@
 #include "main.h"
-#include "tSerial.h"
+#include "tinySerial.h"
 
 #include <avr/io.h>
 #include <avr/pgmspace.h>
