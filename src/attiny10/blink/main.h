@@ -9,7 +9,7 @@
 
  PB0 | 1   6 | PB3
  GND | 2   5 | VCC
- PB1 | 3   4 | PB2
+ PB1 | 3   4 | PB2 LED
 
 */
 
