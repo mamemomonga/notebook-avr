@@ -6,8 +6,7 @@
 
 // ISR(TIM0_OVF_vect) {
 ISR(TIM0_COMPA_vect) {
-	// PORTB ^= (CLK1P|CLK2P|CLK1N|CLK2N);
-	PORTB ^= (CLK1P|CLK1N);
+	PORTB ^= (CLK1P|CLK2P|CLK1N|CLK2N);
 }
 
 void adc1Init(void) {
@@ -45,7 +44,7 @@ void init_timer(void) {
 
 	// Timer/Counter Interrupt Mask Register
 	// OCIE0A: Timer/Counter0 Output Compare Match A Interrupt Enable
-	// TIMSK0 = (1<<OCIE0A);
+	TIMSK0 = (1<<OCIE0A);
 }
 
 int main(void) {
