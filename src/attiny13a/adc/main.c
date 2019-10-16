@@ -33,7 +33,7 @@ int main(void) {
 	OSCCAL=0x62;
 	adc1Init();
 
-	uint8_t adcp;
+	uint8_t adcp=0;
 
 	for(;;) {
 		uint8_t adc = adc1ReadByte();

@@ -7,8 +7,13 @@ LOCAL_OBJS     := $(addsuffix .o, $(basename $(wildcard *.c *.S)))
 OBJS           := $(LOCAL_OBJS) $(EXTLIB_OBJS)
 AVRDUDE        := avrdude $(PROGRAMMER) -p $(DEVICE)
 
-CC     := avr-gcc
-CFLAGS := -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE) -std=gnu99 -I . -I $(EXTLIB_DIR) -L $(EXTLIB_DIR)
+CC      := avr-gcc
+CFLAGS  := -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE) -std=gnu99
+ifdef EXTLIB_DIR
+INCLUDE := -I . -I $(EXTLIB_DIR)
+LDFLAGS := -L $(EXTLIB_DIR)
+endif
+COMPILE := $(CC) $(CFLAGS) $(INCLUDE) $(LDFLAGS)
 
 all: main.hex
 
@@ -20,10 +25,10 @@ $(OBJS): $(EXTLIB_SRCS)
 $(LOCAL_OBJS): $(EXTLIB_OBJS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(COMPILE) -c $< -o $@
 
 %.o: %.S
-	$(CC) $(CFLAGS) -x assembler-with-cpp -c $< -o $@
+	$(COMPILE) -x assembler-with-cpp -c $< -o $@
 
 %.s: %.c
 	$(CC) $(CFLAGS) -S $< -o $@
@@ -44,7 +49,7 @@ clean:
 	rm -rf $(EXTLIB_DIR)
 
 main.elf: $(OBJS)
-	$(CC) $(CFLAGS) -o main.elf $(OBJS)
+	$(COMPILE) -o main.elf $(OBJS)
 
 main.hex: main.elf
 	rm -f main.hex
@@ -55,4 +60,4 @@ disasm:	main.elf
 	avr-objdump -d main.elf
 
 cpp:
-	$(CC) $(CFLAGS) -E main.c
+	$(COMPILE) -E main.c
