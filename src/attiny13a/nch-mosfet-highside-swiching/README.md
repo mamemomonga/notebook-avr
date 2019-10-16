@@ -1,0 +1,16 @@
+# Nch MOSFET ハイサイドスイッチング
+
+ATtiny13Aで25KHzの矩形波とその反転を生成、チャージポンプで20Vを生成してNch MOSFETをハイサイドスイッチング
+
+このサンプルでは、一定期間で間欠動作する。
+
+# 回路図
+
+![回路図](../../../images/ATTiny13-NchMOSFET-HiSide.png)
+
+# 参考
+
+* [『昼夜逆転』工作室: ATtiny10使用 3倍圧チャージポンプモジュール](http://jsdiy.webcrow.jp/avr_tiny10_chargepump/)
+* [epii's physics notes: チャージポンプ](https://www.epii.jp/articles/note/electronics/charge_pump)
+
+
