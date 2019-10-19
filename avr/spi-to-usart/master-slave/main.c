@@ -8,9 +8,10 @@
 #include <util/setbaud.h>
 
 /* --- USART --- */
-static FILE usart_write_stream;
-void usart_send_char(char c);
-void init_usart(void) {
+static FILE usart_write_stream; // stdoutの実体
+
+static void usart_send_char(char c);
+static void init_usart(void) {
 	// ボーレート設定(setbaud.hで設定)
 	UBRR0H = UBRRH_VALUE;
 	UBRR0L = UBRRL_VALUE;
@@ -34,14 +35,13 @@ void init_usart(void) {
 	// 0,1,1 = 8bit
 	UCSR0C = (1<<UCSZ01) | (1<<UCSZ00);
 
-
 	// stdoutをシリアルに設定
 	FILE* stream=&usart_write_stream;
 	*stream=(FILE)FDEV_SETUP_STREAM(usart_send_char, NULL, _FDEV_SETUP_WRITE);
 	stdout=stream;
 
 }
-void usart_send_char(char c) {
+static void usart_send_char(char c) {
 	loop_until_bit_is_set(UCSR0A, UDRE0); // データレジスタが空になるのを待つ
 	UDR0 = c; // USART送信
 }
@@ -61,7 +61,25 @@ ISR(USART_RX_vect) {
 }
 
 /* --- SPI --- */
-void init_spi_master(void) {
+
+static int spi_putchar(char c) {
+	LED1_H;
+	SPI_SS_L;
+	SPDR = (uint8_t)c;
+	while(!(SPSR & (1<<SPIF))); // 転送完了まで待つ
+	SPI_SS_H;
+	_delay_ms(1); // 1ミリ秒のディレイ
+	return 0;
+}
+
+static void spi_putstr(const char* c) {
+	while (*c) spi_putchar(*c++);
+}
+
+
+static FILE spi_ws = FDEV_SETUP_STREAM(spi_putchar, NULL,_FDEV_SETUP_WRITE);
+
+static void init_spi_master(void) {
 	SPCR = 0; // SPI無効化
 	DDRB &=~ (1 << PB4); // MISO(入力)
 	DDRB |= (1<<PB3)|(1<<PB5); // MOSI(出力),SCK(出力)
@@ -69,7 +87,8 @@ void init_spi_master(void) {
 	SPCR = (1<<SPE)|(1<<MSTR); // SPE: SPI有効, マスターモード
 	SPI_MODE2; SPI_SCK_32; // 速度とモードの設定
 }
-void init_spi_slave(void) {
+
+static void init_spi_slave(void) {
 	SPCR = 0; // SPI無効化
 	DDRB &=~ (1 << PB3)|(1<<PB5); // MOSI(出力),SCK(入力)
 	DDRB |= (1<<PB4); // MISO(出力)
@@ -81,39 +100,27 @@ void init_spi_slave(void) {
 // SPI割り込み(SPI Slave)
 ISR(SPI_STC_vect) {
 	LED1_H;
-	loop_until_bit_is_set(UCSR0A, UDRE0); // データレジスタが空になるのを待つ
-	UDR0 = SPDR; // USART送信(表示)
+	loop_until_bit_is_set(UCSR0A, UDRE0);
 
+// printf_P(PSTR("CHR: 0x%02x\r\n"),SPDR);
+
+	// USART送信(表示)
+	// \rがきたら、\r\nに変換する
+	loop_until_bit_is_set(UCSR0A, UDRE0);
+	if(SPDR == 0x0D) {
+		printf_P(PSTR("\r\n"));
+	} else {
+		UDR0 = SPDR;
+	}
+
+	// テストモードの場合、
 	// 割り込みがあったということは、前のSPDRの値はすでに送信されている
 	// ここで処理したことがわかるように、受信したSPDRの値(ASCIIコード)に
 	// 1くわえたものをSPDRレジスタにいれておく
 	// 次回マスターから受信したときにこの値が送信される
-	SPDR = SPDR+1;
+	if(TEST_MODE_ON) SPDR = SPDR+1;
 
 	LED1_L;
-}
-
-static int spi_putchar(char c) {
-	LED1_H;
-	SPI_SS_L;
-	SPDR = (uint8_t)c;
-	while(!(SPSR & (1<<SPIF))); // 転送完了まで待つ
-	SPI_SS_H;
-	_delay_ms(1); // 1ミリ秒のディレイ
-	return 0;
-}
-static FILE spi_out=FDEV_SETUP_STREAM(spi_putchar, NULL,_FDEV_SETUP_WRITE);
-
-void spi_send_str(const char* c) {
-	while (*c) {
-		LED1_H;
-		SPI_SS_L;
-		SPDR = (uint8_t)*c++; // 8ビットワードごと文字をバラして送る
-		while(!(SPSR & (1<<SPIF))); // 転送完了まで待つ
-		SPI_SS_H;
-		LED1_L;
-		_delay_ms(1); // 1ミリ秒のディレイ
-	}
 }
 
 /* --- MAIN --- */
@@ -127,8 +134,8 @@ int main(void) {
 
 	_delay_ms(1000);
 
-
-	printf_P(PSTR("\r\n USART - SPI "));
+	printf_P(PSTR("\r\n"));
+	printf_P(PSTR("START: USART - SPI "));
 	
 	if(SPI_MODE_MASTER) {
 		printf_P(PSTR("[MASTER] "));
@@ -151,12 +158,12 @@ int main(void) {
     for(;;){
 		_delay_ms(5000);
 		if(TEST_MODE_ON) {
-			if(FLG_SPI_MASTER_IS_H) {
-				printf_P(PSTR("\r\nSPI MASTER MODE RUNNING\r\n"));
-				spi_send_str("Hello from MASTER\r\n");
-				fprintf_P(&spi_out,PSTR("NEMUI!!!\r\n"));
+			if(SPI_MODE_MASTER) {
+				printf_P(PSTR("\r\nRUNNING: MASTER\r\n"));
+				spi_putstr("MASTER: Hello World!(spi_putstr)\r\n");
+				fprintf_P(&spi_ws,PSTR("MASTER: Hello World!(fprintf_P)\r\n"));
 			} else {
-				printf_P(PSTR("\r\nSPI SLAVE MODE RUNNING\r\n"));
+				printf_P(PSTR("\r\nRUNNING: SLAVE\r\n"));
 			}
 		}
 	}
