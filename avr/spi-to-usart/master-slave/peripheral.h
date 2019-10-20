@@ -3,6 +3,9 @@
 
 #include <stdio.h>
 
+typedef void (* T_CB_USART_READ)(char); // コールバックの型
+T_CB_USART_READ uart_read_cb; // コールバック
+
 void usart_send_char(char c); // USARTに一文字送る
 void init_usart(void); // USART初期化
 

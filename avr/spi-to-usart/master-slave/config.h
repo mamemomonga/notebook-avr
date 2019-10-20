@@ -25,19 +25,10 @@ SPI_MSTR  PB0 | 14    15 | PB1  LED1
 // USART ボーレート
 #define BAUD 115200
 
-// PB0: High/Float:MASTER / Low:SLAVE
-#define FLG_SPI_MASTER  ( 1 << PB0 )
-#define FLG_SPI_MASTER_INIT { DDRB &=~ FLG_SPI_MASTER; PORTB |= FLG_SPI_MASTER; }
-#define FLG_SPI_MASTER_IS_H ( PINB & FLG_SPI_MASTER )
-#define SPI_MODE_MASTER ( FLG_SPI_MASTER_IS_H )
-#define SPI_MODE_SLAVE  ( ! FLG_SPI_MASTER_IS_H )
-
-// PD7: High/Float:NORMAL / Low:TEST MODE
-#define FLG_TEST_MODE ( 1 << PD7 )
-#define FLG_TEST_MODE_INIT { DDRD &=~ FLG_TEST_MODE; PORTD |= FLG_TEST_MODE; }
-#define FLG_TEST_MODE_IS_H ( PIND & FLG_TEST_MODE )
-#define TEST_MODE_ON  ( ! FLG_TEST_MODE_IS_H )
-#define TEST_MODE_OFF ( FLG_TEST_MODDE_IS_H )
+// PB0: Enter SETUP
+#define FLG_ENTER_SETUP ( 1 << PB0 )
+#define FLG_ENTER_SETUP_INIT { DDRB &=~ FLG_ENTER_SETUP; PORTB |= FLG_ENTER_SETUP; }
+#define FLG_ENTER_SETUP_IS_H ( PINB & FLG_ENTER_SETUP )
 
 // LED1 PB1
 #define LED1      ( 1<<PB1 )
@@ -68,6 +59,18 @@ SPI_MSTR  PB0 | 14    15 | PB1  LED1
 #define SPI_SCK_8   { SPSR |=  (1<<SPI2X); SPCR &=~ (1<<SPR1); SPCR |=  (1<<SPR0); }
 #define SPI_SCK_32  { SPSR |=  (1<<SPI2X); SPCR |=  (1<<SPR1); SPCR &=~ (1<<SPR0); }
 // #define SPI_SCK_64  { SPSR |=  (1<<SPI2X); SPCR |=  (1<<SPR1); SPCR |=  (1<<SPR0); }
+
+// EEPROM
+#define EEP_CONFIGURED   0x0020
+#define EEP_MASTER       0x0021
+#define EEP_TEST_MODE    0x0022
+#define EEP_SPI_MODE     0x0023
+#define EEP_SPI_SPEED    0x0024
+
+uint8_t cfg_master;
+uint8_t cfg_test_mode;
+uint8_t cfg_spi_mode;
+uint8_t cfg_spi_speed;
 
 #endif
 
