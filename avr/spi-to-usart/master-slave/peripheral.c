@@ -80,13 +80,31 @@ void spi_putstr(const char* c) {
 	while (*c) spi_putchar(*c++);
 }
 
+void spi_spec_setup(void) {
+	switch(cfg_spi_mode) {
+	case 0: SPCR &=~ (1<<CPOL); SPCR &=~ (1<<CPHA); break;
+	case 1: SPCR &=~ (1<<CPOL); SPCR |=  (1<<CPHA); break;
+	case 2: SPCR |=  (1<<CPOL); SPCR &=~ (1<<CPHA); break;
+	case 3: SPCR |=  (1<<CPOL); SPCR |=  (1<<CPHA); break;
+	}
+	switch(cfg_spi_speed) {
+	case 0: SPSR |=  (1<<SPI2X); SPCR &=~ (1<<SPR1); SPCR &=~ (1<<SPR0); break; // fosc/2
+	case 1: SPSR &=~ (1<<SPI2X); SPCR &=~ (1<<SPR1); SPCR &=~ (1<<SPR0); break; // fosc/4
+	case 2: SPSR |=  (1<<SPI2X); SPCR &=~ (1<<SPR1); SPCR |=  (1<<SPR0); break; // fosc/8
+	case 3: SPSR &=~ (1<<SPI2X); SPCR &=~ (1<<SPR1); SPCR |=  (1<<SPR0); break; // fosc/16
+	case 4: SPSR |=  (1<<SPI2X); SPCR |=  (1<<SPR1); SPCR &=~ (1<<SPR0); break; // fosc/32
+	case 5: SPSR &=~ (1<<SPI2X); SPCR |=  (1<<SPR1); SPCR &=~ (1<<SPR0); break; // fosc/64
+	case 6: SPSR &=~ (1<<SPI2X); SPCR |=  (1<<SPR1); SPCR |=  (1<<SPR0); break; // fosc/128
+	}
+}
+
 void init_spi_master(void) {
 	SPCR = 0; // SPI無効化
 	DDRB &=~ (1 << PB4); // MISO(入力)
 	DDRB |= (1<<PB3)|(1<<PB5); // MOSI(出力),SCK(出力)
 	SPI_SS_MASTER; SPI_SS_H; // SSの設定
 	SPCR = (1<<SPE)|(1<<MSTR); // SPE: SPI有効, マスターモード
-	SPI_MODE2; SPI_SCK_32; // 速度とモードの設定
+	spi_spec_setup();
 
 	spi_wh = &spi_write_stream;
 	*spi_wh=(FILE)FDEV_SETUP_STREAM(spi_putchar, NULL,_FDEV_SETUP_WRITE);
@@ -98,7 +116,7 @@ void init_spi_slave(void) {
 	DDRB |= (1<<PB4); // MISO(出力)
 	SPI_SS_SLAVE; // SSの設定
 	SPCR = (1<<SPE)|(1<<SPIE); // SPE: SPI有効 SPIE: SPI割り込み有効
-	SPI_MODE2; SPI_SCK_32; // 速度とモードの設定
+	spi_spec_setup();
 }
 
 // SPI割り込み(SPI Slave)
@@ -123,7 +141,7 @@ ISR(SPI_STC_vect) {
 	// ここで処理したことがわかるように、受信したSPDRの値(ASCIIコード)に
 	// 1くわえたものをSPDRレジスタにいれておく
 	// 次回マスターから受信したときにこの値が送信される
-	if(TEST_MODE_ON) SPDR = SPDR+1;
+	if(cfg_test_mode) SPDR = SPDR+1;
 
 	_delay_ms(1); // 1ミリ秒のディレイ(不要かもしれない)
 	LED1_L;

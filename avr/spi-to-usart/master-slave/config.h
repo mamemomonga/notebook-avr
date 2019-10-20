@@ -23,7 +23,7 @@ SPI_MSTR  PB0 | 14    15 | PB1  LED1
 */
 
 // USART ボーレート
-#define BAUD 115200
+#define BAUD 38400
 
 // PB0: Enter SETUP
 #define FLG_ENTER_SETUP ( 1 << PB0 )
@@ -43,22 +43,6 @@ SPI_MSTR  PB0 | 14    15 | PB1  LED1
 #define SPI_SS_SLAVE  { DDRB &=~ SPI_SS; PORTB &=~ SPI_SS; }
 #define SPI_SS_H      (PORTB) |=  SPI_SS
 #define SPI_SS_L      (PORTB) &=~ SPI_SS
-
-// SPI Data Mode
-#define SPI_MODE1 { SPCR &=~ (1<<CPOL); SPCR &=~ (1<<CPHA); }
-#define SPI_MODE2 { SPCR &=~ (1<<CPOL); SPCR |=  (1<<CPHA); }
-#define SPI_MODE3 { SPCR |=  (1<<CPOL); SPCR &=~ (1<<CPHA); }
-#define SPI_MODE4 { SPCR |~  (1<<CPOL); SPCR |=  (1<<CPHA); }
-
-// SPI Speed
-#define SPI_SCK_4   { SPSR &=~ (1<<SPI2X); SPCR &=~ (1<<SPR1); SPCR &=~ (1<<SPR0); }
-#define SPI_SCK_16  { SPSR &=~ (1<<SPI2X); SPCR &=~ (1<<SPR1); SPCR |=  (1<<SPR0); }
-#define SPI_SCK_64  { SPSR &=~ (1<<SPI2X); SPCR |=  (1<<SPR1); SPCR &=~ (1<<SPR0); }
-#define SPI_SCK_128 { SPSR &=~ (1<<SPI2X); SPCR |=  (1<<SPR1); SPCR |=  (1<<SPR0); }
-#define SPI_SCK_2   { SPSR |=  (1<<SPI2X); SPCR &=~ (1<<SPR1); SPCR &=~ (1<<SPR0); }
-#define SPI_SCK_8   { SPSR |=  (1<<SPI2X); SPCR &=~ (1<<SPR1); SPCR |=  (1<<SPR0); }
-#define SPI_SCK_32  { SPSR |=  (1<<SPI2X); SPCR |=  (1<<SPR1); SPCR &=~ (1<<SPR0); }
-// #define SPI_SCK_64  { SPSR |=  (1<<SPI2X); SPCR |=  (1<<SPR1); SPCR |=  (1<<SPR0); }
 
 // EEPROM
 #define EEP_CONFIGURED   0x0020
