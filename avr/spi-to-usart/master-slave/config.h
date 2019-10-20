@@ -23,7 +23,7 @@ SPI_MSTR  PB0 | 14    15 | PB1  LED1
 */
 
 // USART ボーレート
-#define BAUD 38400
+#define BAUD 115200
 
 // PB0: High/Float:MASTER / Low:SLAVE
 #define FLG_SPI_MASTER  ( 1 << PB0 )

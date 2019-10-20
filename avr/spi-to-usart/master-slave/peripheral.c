@@ -10,6 +10,8 @@
 
 /* --- USART --- */
 
+static FILE usart_write_stream;
+
 void init_usart(void) {
 	// ボーレート設定(setbaud.hで設定)
 	UBRR0H = UBRRH_VALUE;
@@ -61,32 +63,36 @@ ISR(USART_RX_vect) {
 
 /* --- SPI --- */
 
-static int spi_putchar(char c) {
+static FILE spi_write_stream;
+
+int spi_putchar(char c) {
 	LED1_H;
 	SPI_SS_L;
 	SPDR = (uint8_t)c;
 	while(!(SPSR & (1<<SPIF))); // 転送完了まで待つ
 	SPI_SS_H;
 	_delay_ms(1); // 1ミリ秒のディレイ
+	LED1_L;
 	return 0;
 }
 
-static void spi_putstr(const char* c) {
+void spi_putstr(const char* c) {
 	while (*c) spi_putchar(*c++);
 }
 
-static FILE spi_ws = FDEV_SETUP_STREAM(spi_putchar, NULL,_FDEV_SETUP_WRITE);
-
-static void init_spi_master(void) {
+void init_spi_master(void) {
 	SPCR = 0; // SPI無効化
 	DDRB &=~ (1 << PB4); // MISO(入力)
 	DDRB |= (1<<PB3)|(1<<PB5); // MOSI(出力),SCK(出力)
 	SPI_SS_MASTER; SPI_SS_H; // SSの設定
 	SPCR = (1<<SPE)|(1<<MSTR); // SPE: SPI有効, マスターモード
 	SPI_MODE2; SPI_SCK_32; // 速度とモードの設定
+
+	spi_wh = &spi_write_stream;
+	*spi_wh=(FILE)FDEV_SETUP_STREAM(spi_putchar, NULL,_FDEV_SETUP_WRITE);
 }
 
-static void init_spi_slave(void) {
+void init_spi_slave(void) {
 	SPCR = 0; // SPI無効化
 	DDRB &=~ (1 << PB3)|(1<<PB5); // MOSI(出力),SCK(入力)
 	DDRB |= (1<<PB4); // MISO(出力)
@@ -98,9 +104,10 @@ static void init_spi_slave(void) {
 // SPI割り込み(SPI Slave)
 ISR(SPI_STC_vect) {
 	LED1_H;
+
 	loop_until_bit_is_set(UCSR0A, UDRE0);
 
-// printf_P(PSTR("CHR: 0x%02x\r\n"),SPDR);
+	// printf_P(PSTR("CHR: 0x%02x\r\n"),SPDR);
 
 	// USART送信(表示)
 	// \rがきたら、\r\nに変換する
@@ -118,5 +125,7 @@ ISR(SPI_STC_vect) {
 	// 次回マスターから受信したときにこの値が送信される
 	if(TEST_MODE_ON) SPDR = SPDR+1;
 
+	_delay_ms(1); // 1ミリ秒のディレイ(不要かもしれない)
 	LED1_L;
 }
+

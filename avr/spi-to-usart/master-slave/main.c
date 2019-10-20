@@ -47,7 +47,7 @@ int main(void) {
 			if(SPI_MODE_MASTER) {
 				printf_P(PSTR("\r\nRUNNING: MASTER\r\n"));
 				spi_putstr("MASTER: Hello World!(spi_putstr)\r\n");
-				fprintf_P(&spi_ws,PSTR("MASTER: Hello World!(fprintf_P)\r\n"));
+				fprintf_P(spi_wh,PSTR("MASTER: Hello World!(fprintf_P)\r\n"));
 			} else {
 				printf_P(PSTR("\r\nRUNNING: SLAVE\r\n"));
 			}
