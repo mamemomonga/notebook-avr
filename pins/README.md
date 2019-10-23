@@ -4,7 +4,7 @@
 * AVRISP2の接続する部分には低インピーダンスの負荷をつなげない。
 * VCCとGNDの間には0.1uFのコンデンサをできるだけ短い距離で接続する。
 
-## ATmega168, 328P (28PDIP)
+## ATmega168P, 328P (28PDIP)
 ![ATmega328P-1](../images/ATmega328P-1.png)
 
 PCINT
@@ -14,6 +14,9 @@ PCINT
 Arduinoの場合のピンアサイン
 
 ![ATmega328P-3](../images/ATmega328P-3.png)
+
+## ATtiny461A (20PDIP)
+![ATtiny461A.png](../images/ATtiny461A.png)
 
 ## ATtiny 13A (8PDIP)
 ![ATtiny13A-1.png](../images/ATtiny13A-1.png)
