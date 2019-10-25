@@ -36,7 +36,7 @@ const uint8_t me_type_n   PROGMEM = 3;
 const char *const me_type_l[] PROGMEM = { me_type_0, me_type_1, me_type_2, me_type_3 };
 
 static uint8_t me_type_r(void) {
-	switch( 0b00001111 & (cfg1 >> 1)) {
+	switch( 0b00001111 & (cfg1 >> 4)) {
 	// 3:CFG1_I2C_MSTR 2:CFG1_I2C_EN 1:CFG1_SPI_MSTR 0:CFG1_SPI_EN
 	case 0b00000011: return 0;
 	case 0b00000001: return 1;
@@ -55,7 +55,8 @@ static uint8_t me_type_s(uint8_t cv) {
 	case 3: cv = 0b00000100; break;
 	default: return 0xFF;
 	}
-	cfg1 = ( cv << 1 );
+	cfg1 &=~ ( 0b00001111 << 4);
+	cfg1 |= (cv << 4);
 	return 0;
 };
 
@@ -123,7 +124,7 @@ const char *const me_spis_l[] PROGMEM = { me_spis_0, me_spis_1, me_spis_2, me_sp
 
 static uint8_t me_spis_r(void) {
 	switch( 0b00000111 & (cfg2 >> 2)) {
-	// bit2: SPI2X, bit1: SPR1, bit0: SPR0
+	// [2]SPI2X, [1]SPR1, [0]SPR0
 	case 0b00000100: return 0; // fosc/2
 	case 0b00000000: return 1; // fosc/4
 	case 0b00000101: return 2; // fosc/8
@@ -137,7 +138,7 @@ static uint8_t me_spis_r(void) {
 
 static uint8_t me_spis_s(uint8_t cv) {
 	switch(cv) {
-	// bit2: SPI2X, bit1: SPR1, bit0: SPR0
+	// [2]SPI2X, [1]SPR1, [0]SPR0
 	case 0: cv=0b00000100; break; // fosc/2
 	case 1: cv=0b00000000; break; // fosc/4
 	case 2: cv=0b00000101; break; // fosc/8
@@ -159,14 +160,25 @@ static MenuT me_spis(void) {
 
 /* -------------------------------------------------- */
 
+static void show_current(MenuT me) {
+	char  buf[32];
+	uint8_t cv = me.read();
+	strcpy_P(buf, (char *)pgm_read_word(&(me.list[cv])));
+	printf_P(PSTR("  %s\r\n"),buf);
+}
+
 static uint8_t menu_select(MenuT me) {
 	char  buf[32];
 	char* flg_cur;
 	char* flg_def;
 	uint8_t rv;
 
-	uint8_t cv = me.def;
+	uint8_t cv=me.def;
 	if(configured) cv = me.read();
+	if(cv == 0xFF) cv = me.def;
+
+//	if(configured) printf_P(PSTR(" ***** configured *****\r\n"));
+//	printf_P(PSTR(" ***** cfg1 0x%02x *****\r\n"),cfg1);
 
 	for(;;) {
 		strcpy_P(buf, me.title);
@@ -217,7 +229,7 @@ static uint8_t menu_select(MenuT me) {
 static void setup(void) {
 	cli();
 	LED1_H;
-	configured = cfg1 & CFG1_CONFIGURED;
+	configured = !(cfg1 & CFG1_NCONFIG);
 
 	printf_P(PSTR("------------------------------\r\n"));
 	printf_P(PSTR(" SETUP \r\n"));
@@ -229,7 +241,7 @@ static void setup(void) {
 		if(menu_select(me_spis())) { sei(); return; }
 	}
 
-	cfg1 |= CFG1_CONFIGURED;
+	cfg1 &=~ CFG1_NCONFIG;
 	eeprom_busy_wait();
 	eeprom_update_byte((uint8_t *)CFG1_ADDR_EEP,cfg1);
 	eeprom_busy_wait();
@@ -247,28 +259,34 @@ void setup_load(void) {
 	cfg3 = eeprom_read_byte((uint8_t *)CFG3_ADDR_EEP);
 
 	for(;;) {
-		if(cfg1 & CFG1_CONFIGURED) break;
+		if(!(cfg1 & CFG1_NCONFIG)) break;
 		setup();
 	}
 	printf_P(PSTR("------------------------------\r\n"));
 	printf_P(PSTR(" CURRENT CONFIG \r\n"));
 	printf_P(PSTR("------------------------------\r\n"));
 
-	printf_P(PSTR(" CFG1_CONFIGURED: %s \r\n"),(cfg1 & CFG1_CONFIGURED) ? "TRUE" : "FALSE");
-	printf_P(PSTR(" CFG1_SPI_EN: %s \r\n"),(cfg1 & CFG1_SPI_EN) ? "TRUE" : "FALSE");
-	printf_P(PSTR(" CFG1_SPI_MSTR: %s \r\n"),(cfg1 & CFG1_SPI_MSTR) ? "TRUE" : "FALSE");
-	printf_P(PSTR(" CFG1_I2C_EN: %s \r\n"),(cfg1 & CFG1_I2C_EN) ? "TRUE" : "FALSE");
-	printf_P(PSTR(" CFG1_I2C_MSTR: %s \r\n"),(cfg1 & CFG1_I2C_MSTR) ? "TRUE" : "FALSE");
+//	printf_P(PSTR(" CFG1_NCONFIG: %s \r\n"),(cfg1 & CFG1_NCONFIG) ? "TRUE" : "FALSE");
+//	printf_P(PSTR(" CFG1_SPI_EN: %s \r\n"),(cfg1 & CFG1_SPI_EN) ? "TRUE" : "FALSE");
+//	printf_P(PSTR(" CFG1_SPI_MSTR: %s \r\n"),(cfg1 & CFG1_SPI_MSTR) ? "TRUE" : "FALSE");
+//	printf_P(PSTR(" CFG1_I2C_EN: %s \r\n"),(cfg1 & CFG1_I2C_EN) ? "TRUE" : "FALSE");
+//	printf_P(PSTR(" CFG1_I2C_MSTR: %s \r\n"),(cfg1 & CFG1_I2C_MSTR) ? "TRUE" : "FALSE");
+//	printf_P(PSTR(" CFG2_CPOL: %s \r\n"),(cfg2 & CFG2_CPOL) ? "TRUE" : "FALSE");
+//	printf_P(PSTR(" CFG2_CPHA: %s \r\n"),(cfg2 & CFG2_CPHA) ? "TRUE" : "FALSE");
+//	printf_P(PSTR(" CFG2_SPR0: %s \r\n"),(cfg2 & CFG2_SPR0) ? "TRUE" : "FALSE");
+//	printf_P(PSTR(" CFG2_SPR1: %s \r\n"),(cfg2 & CFG2_SPR1) ? "TRUE" : "FALSE");
+//	printf_P(PSTR(" CFG2_SPI2X: %s \r\n"),(cfg2 & CFG2_SPI2X) ? "TRUE" : "FALSE");
 
-	printf_P(PSTR(" CFG2_CPOL: %s \r\n"),(cfg2 & CFG2_CPOL) ? "TRUE" : "FALSE");
-	printf_P(PSTR(" CFG2_CPHA: %s \r\n"),(cfg2 & CFG2_CPHA) ? "TRUE" : "FALSE");
-	printf_P(PSTR(" CFG2_SPR0: %s \r\n"),(cfg2 & CFG2_SPR0) ? "TRUE" : "FALSE");
-	printf_P(PSTR(" CFG2_SPR1: %s \r\n"),(cfg2 & CFG2_SPR1) ? "TRUE" : "FALSE");
-	printf_P(PSTR(" CFG2_SPI2X: %s \r\n"),(cfg2 & CFG2_SPI2X) ? "TRUE" : "FALSE");
+	show_current(me_type());
+	if(( cfg1 & CFG1_SPI_EN ) && ( cfg1 & CFG1_SPI_MSTR )) {
+		show_current(me_spim());
+		show_current(me_spis());
+	}
+
 }
 
-void setup_wc_enter(void) {
-	if (FLG_ENTER_SETUP_IS_H) return;
+uint8_t setup_wc_enter(void) {
+	if (FLG_ENTER_SETUP_IS_H) return 0;
 	setup(); setup_load();
+	return 1;
 }
-

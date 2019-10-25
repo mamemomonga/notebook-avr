@@ -48,11 +48,14 @@ FLG_ENTER_SETUP PB0 | 14    15 | PB1  LED1
 
 // EEPROM ADDRESS
 #define CFG1_ADDR_EEP  0x0020
-#define CFG1_CONFIGURED (1 << 0)
-#define CFG1_SPI_EN     (1 << 1)
-#define CFG1_SPI_MSTR   (1 << 2)
-#define CFG1_I2C_EN     (1 << 3)
-#define CFG1_I2C_MSTR   (1 << 4)
+#define CFG1_NCONFIG  (1 << 0)
+#define CFG1_DISPHEX  (1 << 1)
+#define CFG1_NONE2    (1 << 2)
+#define CFG1_NONE3    (1 << 3)
+#define CFG1_SPI_EN   (1 << 4)
+#define CFG1_SPI_MSTR (1 << 5)
+#define CFG1_I2C_EN   (1 << 6)
+#define CFG1_I2C_MSTR (1 << 7)
 
 #define CFG2_ADDR_EEP  0x0021
 #define CFG2_CPHA      (1 << 0)
