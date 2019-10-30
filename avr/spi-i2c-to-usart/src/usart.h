@@ -13,4 +13,6 @@ void usart_send_char(char c);
 // USART初期
 void init_usart(void);
 
+void usart_read_default(char c);
+
 #endif

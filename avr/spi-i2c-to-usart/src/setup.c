@@ -24,6 +24,40 @@ typedef struct {
 } MenuT;
 
 /* -------------------------------------------------- */
+/*  me_disp_mode                                      */
+/* -------------------------------------------------- */
+const char    me_dmode_t[] PROGMEM = "DISP MODE";
+const char    me_dmode_0[] PROGMEM = "Text";
+const char    me_dmode_1[] PROGMEM = "Hex";
+const uint8_t me_dmode_d   PROGMEM = 0;
+const uint8_t me_dmode_n   PROGMEM = 1;
+const char *const me_dmode_l[] PROGMEM = { me_dmode_0, me_dmode_1 };
+
+static uint8_t me_dmode_r(void) {
+	switch( 0b00000001 & (cfg1 >> 1)) {
+	case 0b00000000: return 0;
+	case 0b00000001: return 1;
+	default: return 0xFF;
+	}
+};
+
+static uint8_t me_dmode_s(uint8_t cv) {
+	switch(cv) {
+	case 0: cv = 0b00000000; break;
+	case 1: cv = 0b00000001; break;
+	default: return 0xFF;
+	}
+	cfg1 &=~ ( 0b00000001 << 1);
+	cfg1 |= (cv << 1);
+	return 0;
+};
+
+static MenuT me_dmode(void) {
+	MenuT rv = { me_dmode_t, me_dmode_l, me_dmode_n, me_dmode_d, me_dmode_r, me_dmode_s };
+	return rv;
+};
+
+/* -------------------------------------------------- */
 /*  me_type                                           */
 /* -------------------------------------------------- */
 const char    me_type_t[] PROGMEM = "TYPE";
@@ -235,10 +269,13 @@ static void setup(void) {
 	printf_P(PSTR(" SETUP \r\n"));
 	printf_P(PSTR("------------------------------\r\n"));
 
-	if(menu_select(me_type())) { sei(); return; }
-	if(( cfg1 & CFG1_SPI_EN ) && ( cfg1 & CFG1_SPI_MSTR )) {
+	if(menu_select(me_dmode())) { sei(); return; }
+	if(menu_select(me_type()))  { sei(); return; }
+	if( cfg1 & CFG1_SPI_EN ) {
 		if(menu_select(me_spim())) { sei(); return; }
-		if(menu_select(me_spis())) { sei(); return; }
+		if ( cfg1 & CFG1_SPI_MSTR ) {
+			if(menu_select(me_spis())) { sei(); return; }
+		}
 	}
 
 	cfg1 &=~ CFG1_NCONFIG;
@@ -266,21 +303,11 @@ void setup_load(void) {
 	printf_P(PSTR(" CURRENT CONFIG \r\n"));
 	printf_P(PSTR("------------------------------\r\n"));
 
-//	printf_P(PSTR(" CFG1_NCONFIG: %s \r\n"),(cfg1 & CFG1_NCONFIG) ? "TRUE" : "FALSE");
-//	printf_P(PSTR(" CFG1_SPI_EN: %s \r\n"),(cfg1 & CFG1_SPI_EN) ? "TRUE" : "FALSE");
-//	printf_P(PSTR(" CFG1_SPI_MSTR: %s \r\n"),(cfg1 & CFG1_SPI_MSTR) ? "TRUE" : "FALSE");
-//	printf_P(PSTR(" CFG1_I2C_EN: %s \r\n"),(cfg1 & CFG1_I2C_EN) ? "TRUE" : "FALSE");
-//	printf_P(PSTR(" CFG1_I2C_MSTR: %s \r\n"),(cfg1 & CFG1_I2C_MSTR) ? "TRUE" : "FALSE");
-//	printf_P(PSTR(" CFG2_CPOL: %s \r\n"),(cfg2 & CFG2_CPOL) ? "TRUE" : "FALSE");
-//	printf_P(PSTR(" CFG2_CPHA: %s \r\n"),(cfg2 & CFG2_CPHA) ? "TRUE" : "FALSE");
-//	printf_P(PSTR(" CFG2_SPR0: %s \r\n"),(cfg2 & CFG2_SPR0) ? "TRUE" : "FALSE");
-//	printf_P(PSTR(" CFG2_SPR1: %s \r\n"),(cfg2 & CFG2_SPR1) ? "TRUE" : "FALSE");
-//	printf_P(PSTR(" CFG2_SPI2X: %s \r\n"),(cfg2 & CFG2_SPI2X) ? "TRUE" : "FALSE");
-
 	show_current(me_type());
-	if(( cfg1 & CFG1_SPI_EN ) && ( cfg1 & CFG1_SPI_MSTR )) {
+
+	if( cfg1 & CFG1_SPI_EN ) {
 		show_current(me_spim());
-		show_current(me_spis());
+		if( cfg1 & CFG1_SPI_MSTR ) show_current(me_spis());
 	}
 
 }

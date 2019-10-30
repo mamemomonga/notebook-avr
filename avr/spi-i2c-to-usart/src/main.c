@@ -15,9 +15,9 @@ void change_setup(void) {
 	if( cfg1 & CFG1_NCONFIG ) return;
 	if( cfg1 & CFG1_SPI_EN ) {
 		if( cfg1 & CFG1_SPI_MSTR ) {
-			init_spi_master();
+			start_spi_master();
 		} else {
-			init_spi_slave();
+			start_spi_slave();
 		}
 	}
 }
@@ -30,6 +30,7 @@ int main(void) {
 	init_usart();
 	sei();
 
+	printf_P(PSTR("\r\n\r\n"));
 	printf_P(PSTR("------------------------------\r\n"));
 	printf_P(PSTR(" spi/i2c to usart converter\r\n"));
 	printf_P(PSTR("------------------------------\r\n"));

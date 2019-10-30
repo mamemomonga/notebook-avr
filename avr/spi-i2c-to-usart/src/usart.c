@@ -9,7 +9,7 @@
 
 static FILE usart_write_stream;
 
-static void usart_read_default(char c) {
+void usart_read_default(char c) {
 	return;
 }
 
@@ -53,8 +53,7 @@ void usart_send_char(char c) {
 
 // USART割り込み(SPI Master)
 ISR(USART_RX_vect) {
-	if(bit_is_clear(UCSR0A,FE0)){ // フレームエラーなし
-		usart_read_cb((char)UDR0);
-	}
+	if(!bit_is_clear(UCSR0A,FE0)) return;
+	usart_read_cb((char)UDR0);
 }
 
