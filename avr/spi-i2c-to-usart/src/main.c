@@ -12,12 +12,25 @@
 #include <avr/interrupt.h>
 
 void change_setup(void) {
+	stop_spi();
+	stop_i2c();
+
 	if( cfg1 & CFG1_NCONFIG ) return;
 	if( cfg1 & CFG1_SPI_EN ) {
 		if( cfg1 & CFG1_SPI_MSTR ) {
 			start_spi_master();
+			return;
 		} else {
 			start_spi_slave();
+			return;
+		}
+	}
+	if( cfg1 & CFG1_I2C_EN ) {
+		if( cfg1 & CFG1_I2C_MSTR ) {
+			start_i2c_master();
+			return;
+		} else {
+			start_i2c_slave(0x20);
 		}
 	}
 }
