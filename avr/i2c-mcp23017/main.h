@@ -6,9 +6,9 @@
 /*
  ATmega328P 28PDIP
 
- /RST | 1     28 | PC5
-  PD0 | 2     27 | PC4
-  PD1 | 3     26 | PC3
+ /RST | 1     28 | PC5 SCL
+  PD0 | 2     27 | PC4 SCA
+  PD1 | 3     26 | PC3 PMX_RST
   PD2 | 4     25 | PC2
   PD3 | 5     24 | PC1
   PD4 | 6     23 | PC0
