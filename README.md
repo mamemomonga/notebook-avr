@@ -31,6 +31,7 @@ Arduinoについては[Arduinoのメモ帳](https://github.com/mamemomonga/noteb
 [ATTiny10A]() | 1K | 32 | - | [秋月:35円](http://akizukidenshi.com/catalog/g/gI-04575/) | 米粒大
 [ATTiny13A](https://www.microchip.com/wwwproducts/en/ATTINY13A) | 1K | 64 | 64 | [秋月:50円](http://akizukidenshi.com/catalog/g/gI-02911/) | 好き
 [ATTiny85](https://www.microchip.com/wwwproducts/en/ATtiny85) | 8K | 512 | 512 | [秋月:130円](http://akizukidenshi.com/catalog/g/gI-09573/) | SPI,I2C,SPWM
+[ATtiny461A](https://www.microchip.com/wwwproducts/en/ATtiny461A) | 5K | 256 | 256 | [RS(PDIP): 145円](https://jp.rs-online.com/web/p/microcontrollers/1331652P/) | [RS(TSSOP): 47.6円](https://jp.rs-online.com/web/p/microcontrollers/1331654/) | 20ピン、TSSOPなら50円程度。温度センサー内蔵
 [ATmega48](https://www.microchip.com/wwwproducts/en/ATmega48) | 4K | 512 | 256 | [秋月:150円](http://akizukidenshi.com/catalog/g/gI-08437/) | 面実装だけど安い
 [ATmega168](https://www.microchip.com/wwwproducts/en/ATmega168) | 16K | 1K | 512 |[RS:330.5円](https://jp.rs-online.com/web/p/microcontrollers/1278258/) | 機能は多分328Pとほとんど同じ
 [ATmega328P](https://www.microchip.com/wwwproducts/en/ATmega328P) | 32K | 2K | 1K | [秋月:230円](http://akizukidenshi.com/catalog/g/gI-03142/) | Arduino UNOの本体
