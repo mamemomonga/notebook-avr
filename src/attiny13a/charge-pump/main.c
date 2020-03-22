@@ -51,9 +51,13 @@ int main(void) {
 
 	cli();
 
-	CLK1P_INIT; CLK1N_INIT;
+	// シングルモードの場合はCLK1のみ有効にする
+	// デキュアルモードならCLK2も有効にする
+	CLK1P_OUT; CLK1N_OUT;
+	CLK2P_OUT; CLK2N_OUT;
 
 	// 個体差によって微調整が必要
+	// オシレータの精度が不要な場合は設定不要
 	OSCCAL=0x61;
 
 	init_timer();

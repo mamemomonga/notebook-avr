@@ -58,7 +58,7 @@ Arduinoの場合のピンアサイン
 ![ATmega328P-3](./images/ATmega328P-3.png)
 
 ## ATtiny461A (20PDIP)
-![ATtiny461A-1.png](./images/ATtiny461A-1.png)
+![ATtiny461A.png](./images/ATtiny461A.png)
 
 ## ATtiny 13A (8PDIP)
 ![ATtiny13A-1.png](./images/ATtiny13A-1.png)
