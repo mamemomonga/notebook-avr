@@ -16,10 +16,11 @@ FUSES = -U lfuse:w:0xff:m -U hfuse:w:0xdf:m -U efuse:w:0x01:m
 
 # ------------------------------------
 
-OBJS = $(addsuffix .o, $(basename $(shell find . -type f -name '*.c')))
-DEPS = $(OBJS:%.o=%.d)
-AVRDUDE= avrdude $(PROGRAMMER) -p $(DEVICE) 
-COMPILE = avr-gcc -Wall -Os -std=gnu99 -I . -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
+SRCS    := $(shell find . -type f -name '*.c')
+OBJS    := $(SRCS:%.c=%.o)
+DEPS    := $(OBJS:%.o=%.d)
+AVRDUDE := avrdude $(PROGRAMMER) -p $(DEVICE) 
+COMPILE := avr-gcc -Wall -Os -std=gnu99 -I . -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 all:	main.hex
 
 -include $(DEPS)
@@ -40,7 +41,7 @@ install: flash fuse
 load: all
 	bootloadHID main.hex
 clean:
-	rm -f main.hex main.elf $(OBJS)
+	rm -f main.hex main.elf $(OBJS) $(OBJS:.o=.d)
 main.elf: $(OBJS)
 	$(COMPILE) -o main.elf $(OBJS)
 main.hex: main.elf
@@ -51,6 +52,4 @@ disasm:	main.elf
 	avr-objdump -d main.elf
 cpp:
 	$(COMPILE) -E main.c
-
-
 
