@@ -1,14 +1,14 @@
 #include "config.h"
 
-#define PORT   _SFR_IO_ADDR(SR595_PORT)
-#define MOSI   SR595_MOSI
-#define BVSCK  (1<<SR595_SCK)
+#define PORT   _SFR_IO_ADDR(BB595_PORT)
+#define MOSI   BB595_MOSI
+#define BVSCK  (1<<BB595_SCK)
 
 // 16MHzクロックのAVRではSCKが1MHzほどになる 
 
-.global sr595_write_chip
+.global bb595_write_chip
 
-sr595_write_chip:
+bb595_write_chip:
 	// 引数はr25,r24,r23,r22... というふうに渡される
 	// ワード(16ビット)単位で渡されるのでバイト(8ビット)ならばr24
 

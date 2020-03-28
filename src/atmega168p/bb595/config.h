@@ -48,10 +48,10 @@ SN74HC595, 74HC595
 
 */
 
-#define SR595_PORT PORTD
-#define SR595_DDR  DDRD
-#define SR595_MOSI PD2
-#define SR595_SCK  PD3
-#define SR595_SS   PD4
+#define BB595_PORT PORTD
+#define BB595_DDR  DDRD
+#define BB595_MOSI PD2
+#define BB595_SCK  PD3
+#define BB595_SS   PD4
 
 #endif
