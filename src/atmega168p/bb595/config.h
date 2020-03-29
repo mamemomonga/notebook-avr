@@ -38,7 +38,7 @@ XTAL2 | 10    19 | PB5
 SN74HC595, 74HC595
 
   Q1,Qb | 1  16 | Vcc
-  Q2,Qc | 2  15 | Q0
+  Q2,Qc | 2  15 | Q0, Qa
   Q3,Qd | 3  14 | DS, SER, MOSI
   Q4,Qe | 4  13 | /OE
   Q5,Qf | 5  12 | STCP, RCKL, SS
