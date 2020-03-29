@@ -16,11 +16,13 @@ FUSES = -U lfuse:w:0xff:m -U hfuse:w:0xdf:m -U efuse:w:0x01:m
 
 # ------------------------------------
 
-SRCS    := $(shell find . -type f -name '*.c')
-OBJS    := $(SRCS:%.c=%.o)
+SRCC    := $(shell find . -type f -maxdepth 1 -name '*.c')
+SRCA    := $(shell find . -type f -maxdepth 1 -name '*.S')
+OBJS    = $(SRCC:%.c=%.o) $(SRCA:%.S=%.o)
 DEPS    := $(OBJS:%.o=%.d)
 AVRDUDE := avrdude $(PROGRAMMER) -p $(DEVICE) 
 COMPILE := avr-gcc -Wall -Os -std=gnu99 -I . -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
+
 all:	main.hex
 
 serial:
