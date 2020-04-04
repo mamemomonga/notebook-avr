@@ -1,9 +1,10 @@
-
+#include <avr/io.h>
 #include "config.h"
 
 #define BB595W_PORT   _SFR_IO_ADDR(BB595_PORT)
 #define BB595W_MOSI   BB595_MOSI
 #define BB595W_BVSCK  (1<<BB595_SCK)
+#define BB595W_BVMOSI (1<<BB595_MOSI)
 
 // 16MHzクロックのAVRではSCKが1MHzほどになる 
 
@@ -21,20 +22,21 @@ bb595_write_chip:
 		andi r25,  ~BB595W_BVSCK     ; SCKをLOW
 		out  BB595W_PORT, r25        ; 出力:MOSI,SCK
 		nop
-		nop
+		nop 
+		nop 
 		nop 
 		lsr  r24                     ; データを右シフト
 		ori  r25,BB595W_BVSCK        ; SCKをHIGH
 		lsr  r26                     ; r26を右シフト
 		out  BB595W_PORT, r25        ; 出力:SCK
 		nop
-		nop
+		nop 
 		brne SPIWriteLoop            ; r26が空になるまでジャンプ
 
 	nop
-	nop
+	nop 
+	andi r25, ~BB595W_BVMOSI         ; MOSIをLOW
 	andi r25, ~BB595W_BVSCK          ; SCKをLOW
 	out  BB595W_PORT, r25            ; 出力
-
 	ret
 

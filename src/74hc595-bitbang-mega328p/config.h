@@ -48,6 +48,7 @@ SN74HC595, 74HC595
 
 */
 
+#define BB595_DUAL
 #define BB595_PORT PORTD
 #define BB595_DDR  DDRD
 #define BB595_MOSI PD2

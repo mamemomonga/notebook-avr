@@ -1,18 +1,23 @@
 # 動作デバイス ( リスト: avr-as -mlist-devices )
-DEVICE     := atmega168p
+DEVICE     := atmega328p
 
 # プログラマ ( リスト: avrdude -c ? )
 PROGRAMMER := -c avrisp2
 
-# Full-swing Crystal CKSEL-1111 SUT=111
-# 動作クロック(Hz) 16MHz
+# 外付け16MHzクリスタル 動作クロック(Hz)
 CLOCK = 16000000
-FUSES = -U lfuse:w:0xff:m -U hfuse:w:0xdf:m -U efuse:w:0x01:m
+# 16MHz Full-swing Crystal CKSEL-0111 SUT=00
+# FUSES = -U lfuse:w:0xc7:m -U hfuse:w:0xd8:m -U efuse:w:0xfd:m
+# ExtendedFuseを変更するとき
+FUSES = -U lfuse:w:0xc7:m -U hfuse:w:0xd8:m -U efuse:w:0x05:m
 
-# Int. RC 8MHz
-# 動作クロック(Hz) 8MHz
+# 内臓8MHzRCオシレータ 動作クロック(Hz)
 # CLOCK := 8000000
-# FUSES := -U lfuse:w:0xe2:m -U hfuse:w:0xdf:m -U efuse:w:0x01:m
+# 8MHzInt. RC 8MHz 
+# FUSES = -U lfuse:w:0xe2:m -U hfuse:w:0xd8:m -U efuse:w:0xfd:m
+# ExtendedFuseを変更するとき
+# FUSES = -U lfuse:w:0xe2:m -U hfuse:w:0xd8:m -U efuse:w:0x05:m
+
 
 # ------------------------------------
 

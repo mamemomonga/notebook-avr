@@ -18,15 +18,19 @@ static void bb595_end() {
 	BB595_PORT |=  (1<<BB595_SS | 1<<BB595_SCK);
 }
 
-void bb595_write1(uint8_t b) {
+#if defined(BB595_SINGLE)
+void bb595_write(uint8_t b) {
 	bb595_start();
 	bb595_write_chip(b);
 	bb595_end();	
 }
+#endif
 
-void bb595_write2(uint16_t b) {
+#if defined(BB595_DUAL)
+void bb595_write(uint16_t b) {
 	bb595_start();
 	bb595_write_chip(b & 0xFF);
 	bb595_write_chip(( b >> 8 ) & 0xFF);
 	bb595_end();	
 }
+#endif
