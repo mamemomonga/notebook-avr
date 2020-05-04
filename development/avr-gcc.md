@@ -30,7 +30,9 @@ PINBの2ビット目が1である
 
 	( PINB & 2 )
 
-以下のようにマクロを書いておくと便利
+# テンプレート
+
+## ATTiny13A, ATmega
 
 main.h
 
@@ -39,34 +41,101 @@ main.h
 
 	#include <avr/io.h>
 
-	// LED1 PB5
-	//   LED1_INIT: 初期化
-	//   LED1_H:    HIGHにする
-	//   LED1_L:    LOWにする
-	//   LED1_I:    反転する
-	#define LED1      ( 1<<PB5 )
-	#define LED1_INIT DDRB  |=  LED1
-	#define LED1_H    PORTB |=  LED1
-	#define LED1_L    PORTB &=~ LED1
-	#define LED1_I    PORTB ^=  LED1
+	// IO PB2
+	// IO_OUT:  出力
+	// IO_IN:   入力プルアップなし
+	// IO_INPU: 入力プルアップ
+	// IO_H:    出力をHIGHにする
+	// IO_L:    出力をLOWにする
+	// IO_I:    出力を反転する
+	// IO_IS_H: 入力はHIGHである
+	// IO_IS_L: 入力はHIGHである
 
-	// ボタン1 PB1
-	// IC内部でプルアップ有功
-	//   BTN1_INIT:  初期化
-	//   BTN1_IS_H:  BTN2はHIGHである
-	#define BTN1      ( 1<<PB1 )
-	#define BTN1_INIT { DDRB &=~ BTN1; PORTB |= BTN1; }
-	#define BTN1_IS_H ( PINB & BTN1 )
+	#define IO       ( 1<<PB2 )
+	#define IO_OUT     DDRB  |=  IO 
+	#define IO_IN    { DDRB  &=~ IO; PORTB &=~ IO; }
+	#define IO_INPU  { DDRB  &=~ IO; PORTB |=  IO; }
+	#define IO_H       PORTB |=  IO 
+	#define IO_L       PORTB &=~ IO 
+	#define IO_I       PORTB ^=  IO 
+	#define IO_IS_H  ( PINB &    IO )
+	#define IO_IS_L !( PINB &    IO )
 
 	#endif
 
 main.c
 
 	#include "main.h"
+	#include <util/delay.h>
+
 	int main(void) {
-		LED1_INIT; 
-		LED1_H;
+		IO_OUT; 
+		for(;;) {
+			IO_I;
+			_delay_ms(500);
+		}
 		return 0;
 	}
 
+## ATTiny10
+
+* ATTiny10はフューズビットの設定を起動時に行う。
+* またプルアップの設定をPUExレジスタで指定する(事前にPUExを0で埋めておくこと)。
+
+main.h
+
+	#ifndef _MAIN_H_
+	#define _MAIN_H_
+
+	#include <avr/io.h>
+
+	// IO PB2
+	// IO_OUT:  出力
+	// IO_IN:   入力プルアップなし
+	// IO_INPU: 入力プルアップ
+	// IO_H:    出力をHIGHにする
+	// IO_L:    出力をLOWにする
+	// IO_I:    出力を反転する
+	// IO_IS_H: 入力はHIGHである
+	// IO_IS_L: 入力はHIGHである
+
+	#define IO       ( 1<<PB2 )
+	#define IO_OUT     DDRB  |=  IO 
+	#define IO_IN    { DDRB  &=~ IO; PUEB &=~ IO; }
+	#define IO_INPU  { DDRB  &=~ IO; PUEB |=  IO; }
+	#define IO_H       PORTB |=  IO 
+	#define IO_L       PORTB &=~ IO 
+	#define IO_I       PORTB ^=  IO 
+	#define IO_IS_H  ( PINB  &   IO )
+	#define IO_IS_L !( PINB  &   IO )
+
+	#endif
+
+main.c
+
+	#include "main.h"
+	#include <util/delay.h>
+
+	// 内部クロック8MHz
+	CCP = 0xD8;
+	CLKMSR = 0;
+
+	// プリスケーラなし
+	CCP = 0xD8;
+	CLKPSR = 0;
+
+	// すべてのプルアップ無効
+	PUEB=0;
+
+	// IO初期化
+	IO_OUT;
+
+	int main(void) {
+		IO_OUT; 
+		for(;;) {
+			IO_I;
+			_delay_ms(500);
+		}
+		return 0;
+	}
 
