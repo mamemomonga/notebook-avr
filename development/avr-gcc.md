@@ -69,7 +69,9 @@ main.c
 	#include <util/delay.h>
 
 	int main(void) {
-		IO_OUT; 
+		// IO初期化
+		IO_OUT;
+
 		for(;;) {
 			IO_I;
 			_delay_ms(500);
@@ -116,22 +118,21 @@ main.c
 	#include "main.h"
 	#include <util/delay.h>
 
-	// 内部クロック8MHz
-	CCP = 0xD8;
-	CLKMSR = 0;
-
-	// プリスケーラなし
-	CCP = 0xD8;
-	CLKPSR = 0;
-
-	// すべてのプルアップ無効
-	PUEB=0;
-
-	// IO初期化
-	IO_OUT;
-
 	int main(void) {
-		IO_OUT; 
+		// 内部クロック8MHz
+		CCP = 0xD8;
+		CLKMSR = 0;
+	
+		// プリスケーラなし
+		CCP = 0xD8;
+		CLKPSR = 0;
+	
+		// すべてのプルアップ無効
+		PUEB=0;
+	
+		// IO初期化
+		IO_OUT;
+
 		for(;;) {
 			IO_I;
 			_delay_ms(500);
