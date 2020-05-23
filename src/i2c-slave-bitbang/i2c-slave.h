@@ -4,7 +4,7 @@
 #include <avr/io.h>
 
 void i2c_init();
-uint8_t i2c_datas[32];
+uint8_t i2c_datas[0x20];
 uint8_t i2c_data_addr;
 
 uint8_t i2c_step;
