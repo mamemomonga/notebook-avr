@@ -1,6 +1,7 @@
 #include "i2c-slave.h"
 #include "config.h"
 #include <avr/interrupt.h>
+#include <util/delay.h>
 
 #define I2C_WRITE_ADDR (I2C_ADDR<<1)
 #define I2C_READ_ADDR  (I2C_WRITE_ADDR+1)
@@ -104,19 +105,20 @@ uint8_t i2c_process() {
 			break;
 	}
 
-	// ビジーを解除して、ACK/NACKを送る
-	i2c_send_ack_nack();
-
 	if( i2c_step == I2C_STEP_SEND) {
 		data=i2c_datas[i2c_data_addr];
 		i=8;
+		i2c_send_ack_nack(); // ビジー解除
+		SDA_OUT; SDA_H; // Highから始める
+		while(SCL_IS_H);
 		while(i--) {
 			if( (data>>i) & 1 ) { SDA_H; } else { SDA_L; }
 			while(SCL_IS_L);
 			while(SCL_IS_H);
 		}
-		// NACK
-		i2c_send_ack_nack();
+
+	} else {
+		i2c_send_ack_nack(); // ビジー解除
 	}
 	return 0;
 
