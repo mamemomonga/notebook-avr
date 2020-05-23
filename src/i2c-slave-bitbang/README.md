@@ -36,5 +36,5 @@ ATTiny13Aに簡易i2c slaveにする
 
 # 回路図
 
-![schematics](./schematics/att13-i2c-slave.svg)
+![schematics](./schematics/schematics.png)
 
