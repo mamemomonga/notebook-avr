@@ -6,6 +6,7 @@ ATTiny13Aに簡易的なi2c slaveにする
 * Raspberry Piからi2cdetect, i2cget, i2csetでコントロール
 * データは i2c_datas[] を介して行われる。すべて読み書き可能
 * i2c_data[]の配列はデータアドレスに対応している
+* これは実験的なものです。
 
 メモリ使用状況
 
