@@ -1,7 +1,0 @@
-*.swp
-*.o
-*.d
-*.elf
-*.hex
-*.sch-bak
-*-cache.lib
