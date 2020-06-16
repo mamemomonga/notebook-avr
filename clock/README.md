@@ -11,7 +11,7 @@
 # 便利ツール
 
 * [AVR UART Baud Rate Calculator](https://trolsoft.ru/en/uart-calc)
-* [ubbr-calc.pl](../bin/ubbr-calc.pl)
+* [ubbr-calc.pl](./ubbr-calc.pl)
 
 ## 代表的な動作クロックとUSART使用時のU2XnとUBBRの設定値
 
