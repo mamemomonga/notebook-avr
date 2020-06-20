@@ -1,9 +1,3 @@
-/* 
- * tinySerial.S
- * based on BasicSerial3.zip by Ralph Doncaster
- *   http://nerdralph.blogspot.com/2014/01/avr-half-duplex-software-uart.html
-*/
-
 /* half-duplex 81N serial uart in hand-tuned assembler
  * 1%/2% Tx/Rx timing error for 115.2kbps@8Mhz
  * 2%/1% Tx/Rx timing error for 230.4kbps@8Mhz
@@ -14,19 +8,10 @@
 
 #define delayCount r18
 #include <avr/io.h>
-#include "config.h"
-
 ; correct for avr/io.h 0x20 port offset for io instructions
-
-#define UART_Port (PORTB - __SFR_OFFSET)
-
-#ifndef UART_Tx
-#define UART_Tx 1
-#endif
-
-#ifndef UART_Rx
-#define UART_Rx 1
-#endif
+#define UART_Port (PORTB-0x20)
+#define UART_Tx 5
+#define UART_Rx 5
 
 ; Supports using only one pin on the AVR for both Tx and Rx
 ;              D1
@@ -40,7 +25,7 @@
 ; calling code must set Tx line to idle state (high) or 1st byte may be lost
 ; i.e. PORTB |= (1<<UART_Tx)
 TxTimedByte:
-	// cli
+	cli
         sbi UART_Port-1, UART_Tx        ; set Tx line to output
         cbi UART_Port, UART_Tx          ; start bit
 	in r0, UART_Port
@@ -58,19 +43,7 @@ TxDelay:
 	ror r24
 	out UART_Port, r0
         brne TxLoop
-
-
-	; Rx(=Tx)ラインを入力に
-	cbi UART_Port-1, UART_Rx 
-
-	; 割り込みフラグをリセット
-	; GIFR |= _BV(INTF0);
-	in      r24, 0x3a ; GFIR
-	ori     r24, 0x40 ; |= 0b01000000 INTF0
-	out     0x3a, r24
-
-	ret
-	//reti				; return and enable interrupts
+	reti				; return and enable interrupts
 
 
 .global RxTimedByte
@@ -83,9 +56,9 @@ RxTimedByte:
 	mov delayCount, r24		; 1.5 bit delay
 	ldi r24, 0x80 			; bit shift counter
 WaitStart:
- 	sbic UART_Port-2, UART_Rx 	; wait for start edge
- 	rjmp WaitStart
-	// cli
+	sbic UART_Port-2, UART_Rx 	; wait for start edge
+	rjmp WaitStart
+	cli
 RxBit:
         ; 6 cycle loop + delay - total = 5 + 3*r22
 ; delay (3 cycle * delayCount) -1 and clear carry with subi
@@ -99,7 +72,5 @@ RxBit:
 StopBit:
         dec delayCount
         brne StopBit
-
-	ret
-//	reti				; return and enable interrupts
+	reti				; return and enable interrupts
 

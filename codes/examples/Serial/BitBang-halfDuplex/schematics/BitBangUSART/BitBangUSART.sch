@@ -1,0 +1,241 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L MCU_Microchip_ATtiny:ATtiny13A-PU U1
+U 1 1 5EEE418D
+P 2900 2900
+F 0 "U1" H 2371 2946 50  0000 R CNN
+F 1 "ATtiny13A-PU" H 2371 2855 50  0000 R CNN
+F 2 "Package_DIP:DIP-8_W7.62mm" H 2900 2900 50  0001 C CIN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/doc8126.pdf" H 2900 2900 50  0001 C CNN
+	1    2900 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR03
+U 1 1 5EEE4A59
+P 2900 2100
+F 0 "#PWR03" H 2900 1950 50  0001 C CNN
+F 1 "+3V3" H 2915 2273 50  0000 C CNN
+F 2 "" H 2900 2100 50  0001 C CNN
+F 3 "" H 2900 2100 50  0001 C CNN
+	1    2900 2100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR04
+U 1 1 5EEE52DE
+P 2900 3700
+F 0 "#PWR04" H 2900 3450 50  0001 C CNN
+F 1 "GND" H 2905 3527 50  0000 C CNN
+F 2 "" H 2900 3700 50  0001 C CNN
+F 3 "" H 2900 3700 50  0001 C CNN
+	1    2900 3700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2900 3500 2900 3700
+Wire Wire Line
+	2900 2300 2900 2100
+$Comp
+L Connector:AVR-ISP-6 J1
+U 1 1 5EEE5B70
+P 4450 1600
+F 0 "J1" H 4120 1696 50  0000 R CNN
+F 1 "AVR-ISP-6" H 4120 1605 50  0000 R CNN
+F 2 "" V 4200 1650 50  0001 C CNN
+F 3 " ~" H 3175 1050 50  0001 C CNN
+	1    4450 1600
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR06
+U 1 1 5EEE8FB2
+P 4550 1100
+F 0 "#PWR06" H 4550 950 50  0001 C CNN
+F 1 "+3V3" H 4565 1273 50  0000 C CNN
+F 2 "" H 4550 1100 50  0001 C CNN
+F 3 "" H 4550 1100 50  0001 C CNN
+	1    4550 1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR07
+U 1 1 5EEE939F
+P 4550 2000
+F 0 "#PWR07" H 4550 1750 50  0001 C CNN
+F 1 "GND" H 4555 1827 50  0000 C CNN
+F 2 "" H 4550 2000 50  0001 C CNN
+F 3 "" H 4550 2000 50  0001 C CNN
+	1    4550 2000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3500 2600 3550 2600
+Wire Wire Line
+	3550 2600 3550 1500
+Wire Wire Line
+	3550 1500 4050 1500
+Wire Wire Line
+	3500 2700 3650 2700
+Wire Wire Line
+	3650 2700 3650 1400
+Wire Wire Line
+	3650 1400 4050 1400
+Wire Wire Line
+	3500 2800 3750 2800
+Wire Wire Line
+	3750 2800 3750 1600
+Wire Wire Line
+	3750 1600 4050 1600
+Wire Wire Line
+	3500 3100 3850 3100
+Wire Wire Line
+	3850 3100 3850 1700
+Wire Wire Line
+	3850 1700 4050 1700
+$Comp
+L Device:C C1
+U 1 1 5EEEBF29
+P 1450 2900
+F 0 "C1" H 1565 2946 50  0000 L CNN
+F 1 "C" H 1565 2855 50  0000 L CNN
+F 2 "" H 1488 2750 50  0001 C CNN
+F 3 "~" H 1450 2900 50  0001 C CNN
+	1    1450 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR02
+U 1 1 5EEECA61
+P 1450 3650
+F 0 "#PWR02" H 1450 3400 50  0001 C CNN
+F 1 "GND" H 1455 3477 50  0000 C CNN
+F 2 "" H 1450 3650 50  0001 C CNN
+F 3 "" H 1450 3650 50  0001 C CNN
+	1    1450 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR01
+U 1 1 5EEED242
+P 1450 2100
+F 0 "#PWR01" H 1450 1950 50  0001 C CNN
+F 1 "+3V3" H 1465 2273 50  0000 C CNN
+F 2 "" H 1450 2100 50  0001 C CNN
+F 3 "" H 1450 2100 50  0001 C CNN
+	1    1450 2100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1450 2100 1450 2750
+$Comp
+L Device:LED D1
+U 1 1 5EEED9B7
+P 4350 3500
+F 0 "D1" V 4389 3383 50  0000 R CNN
+F 1 "LED" V 4298 3383 50  0000 R CNN
+F 2 "" H 4350 3500 50  0001 C CNN
+F 3 "~" H 4350 3500 50  0001 C CNN
+	1    4350 3500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 5EEF06F0
+P 4350 3200
+F 0 "R1" H 4420 3246 50  0000 L CNN
+F 1 "1K" H 4420 3155 50  0000 L CNN
+F 2 "" V 4280 3200 50  0001 C CNN
+F 3 "~" H 4350 3200 50  0001 C CNN
+	1    4350 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 2800 4350 2800
+Connection ~ 3750 2800
+$Comp
+L power:GND #PWR05
+U 1 1 5EEF28EE
+P 4350 3700
+F 0 "#PWR05" H 4350 3450 50  0001 C CNN
+F 1 "GND" H 4355 3527 50  0000 C CNN
+F 2 "" H 4350 3700 50  0001 C CNN
+F 3 "" H 4350 3700 50  0001 C CNN
+	1    4350 3700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4350 3650 4350 3700
+Wire Wire Line
+	4350 2800 4350 3050
+Connection ~ 3650 2700
+$Comp
+L Diode:1N4148 D2
+U 1 1 5EEF347A
+P 5350 2700
+F 0 "D2" H 5350 2484 50  0000 C CNN
+F 1 "1N4148" H 5350 2575 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 5350 2525 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 5350 2700 50  0001 C CNN
+	1    5350 2700
+	-1   0    0    1   
+$EndComp
+$Comp
+L Transistor_FET:2N7000 Q1
+U 1 1 5EEF5AC7
+P 5750 3200
+F 0 "Q1" V 5999 3200 50  0000 C CNN
+F 1 "2N7000" V 6090 3200 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 5950 3125 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7000.pdf" H 5750 3200 50  0001 L CNN
+	1    5750 3200
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 5EEF88DE
+P 5750 2850
+F 0 "R2" H 5820 2896 50  0000 L CNN
+F 1 "1K" H 5820 2805 50  0000 L CNN
+F 2 "" V 5680 2850 50  0001 C CNN
+F 3 "~" H 5750 2850 50  0001 C CNN
+	1    5750 2850
+	1    0    0    -1  
+$EndComp
+Text GLabel 6150 2700 2    50   Output ~ 0
+TX
+Text GLabel 6150 3300 2    50   Input ~ 0
+RX
+Wire Wire Line
+	5500 2700 5750 2700
+Wire Wire Line
+	5950 3300 6150 3300
+Wire Wire Line
+	5750 2700 6150 2700
+Connection ~ 5750 2700
+Wire Wire Line
+	3650 2700 4950 2700
+Wire Wire Line
+	4950 2700 4950 3300
+Wire Wire Line
+	4950 3300 5550 3300
+Connection ~ 4950 2700
+Wire Wire Line
+	4950 2700 5200 2700
+Wire Wire Line
+	1450 3050 1450 3650
+$EndSCHEMATC
