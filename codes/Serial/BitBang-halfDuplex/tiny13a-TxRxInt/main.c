@@ -14,8 +14,7 @@ ISR(INT0_vect,ISR_BLOCK) {
 
 void uart_int_init() {
 	cli();
-	// プルアップが必要
-	UART_INPU
+//	UART_INPU
 	// INT0割り込み有効化
 	MCUCR |=  (1<<ISC01);
 	MCUCR &=~ (1<<ISC00);
@@ -34,7 +33,10 @@ int main(void) {
 
     for(;;){
 		LED_L;
+
 		serOutP("Hello World!\r\n");
+
+		UART_INPU;
 		serial_int_flag=0;
 		_delay_ms(500);
 
@@ -42,6 +44,7 @@ int main(void) {
 			serOutP("> ");
 			_delay_ms(500);
 			char rx=RxByte();
+			_delay_ms(10);
 			serOutC(rx);
 			serOutP("\r\n");
 		}

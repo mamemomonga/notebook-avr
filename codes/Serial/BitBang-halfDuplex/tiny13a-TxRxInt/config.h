@@ -28,6 +28,7 @@
 #define UART_Rx   1
 #define UART_Tx   1
 #define UART      ( 1<<PB2 )
+#define UART_IN   { DDRB  &=~ UART; PORTB &=~ UART; }
 #define UART_INPU { DDRB  &=~ UART; PORTB |=  UART; }
 
 #endif
