@@ -24,4 +24,10 @@
 #define LED_IS_H  ( PINB &    LED )
 #define LED_IS_L !( PINB &    LED )
 
+
+#define UART_Rx   1
+#define UART_Tx   1
+#define UART      ( 1<<PB2 )
+#define UART_INPU { DDRB  &=~ UART; PORTB |=  UART; }
+
 #endif

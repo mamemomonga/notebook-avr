@@ -9,11 +9,14 @@ uint8_t serial_int_flag=0;
 
 ISR(INT0_vect,ISR_BLOCK) {
 	serial_int_flag=1;
+	LED_H;
 }
 
-// INT0割り込み有効化
-void int0_init() {
+void uart_int_init() {
 	cli();
+	// プルアップが必要
+	UART_INPU
+	// INT0割り込み有効化
 	MCUCR |=  (1<<ISC01);
 	MCUCR &=~ (1<<ISC00);
 	GIMSK = (1<<INT0);
@@ -27,20 +30,20 @@ int main(void) {
 	LED_OUT;
 	LED_L;
 
-	int0_init();
+	uart_int_init();
 
     for(;;){
-		LED_I;
+		LED_L;
 		serOutP("Hello World!\r\n");
 		serial_int_flag=0;
 		_delay_ms(500);
+
 		if(serial_int_flag) {
-			_delay_ms(100);
 			serOutP("> ");
+			_delay_ms(500);
 			char rx=RxByte();
 			serOutC(rx);
 			serOutP("\r\n");
-			serial_int_flag=0;
 		}
 
     }

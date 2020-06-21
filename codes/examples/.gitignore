@@ -2,5 +2,6 @@
 *.o
 *.hex
 *.bin
+*.elf
 *.d
 

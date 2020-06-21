@@ -6,3 +6,4 @@
 
 ![BitBangUSART.png](./schematics/BitBangUSART.png)
 
+出力・入力だけなら直結でよい。
