@@ -6,7 +6,7 @@ Arduinoについては[Arduinoのメモ帳](https://github.com/mamemomonga/noteb
 * [クロックについて](./clock)
 * [開発情報](./environment)
 * [avr-gcc](./avr-gcc)
-* [コードサンプル集](./codes/examples)
+* [コード集](./codes/)
 
 # 開発
 
